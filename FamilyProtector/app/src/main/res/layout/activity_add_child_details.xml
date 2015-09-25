@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.termproject.familyprotector.AddChildDetails"
+    android:id="@+id/Month">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Child Details"
+        android:id="@+id/Header"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Child Name"
+        android:id="@+id/ChildName"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/Header"
+        android:layout_alignLeft="@+id/Header"
+        android:layout_alignStart="@+id/Header" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/NameOfChild"
+        android:layout_below="@+id/ChildName"
+        android:layout_alignLeft="@+id/ChildName"
+        android:layout_alignStart="@+id/ChildName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:id="@+id/Gender"
+        android:layout_below="@+id/NameOfChild"
+        android:layout_alignLeft="@+id/NameOfChild"
+        android:layout_alignStart="@+id/NameOfChild" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:id="@+id/Male"
+        android:layout_below="@+id/Gender"
+        android:layout_alignLeft="@+id/Gender"
+        android:layout_alignStart="@+id/Gender" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:id="@+id/Female"
+        android:singleLine="false"
+        android:layout_alignTop="@+id/Male"
+        android:layout_alignRight="@+id/NameOfChild"
+        android:layout_alignEnd="@+id/NameOfChild" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Birth Date"
+        android:id="@+id/Birthday"
+        android:layout_below="@+id/Male"
+        android:layout_alignLeft="@+id/Male"
+        android:layout_alignStart="@+id/Male" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/BirthDateText"
+        android:layout_below="@+id/Birthday"
+        android:layout_alignLeft="@+id/Birthday"
+        android:layout_alignStart="@+id/Birthday"
+        android:text="mm/dd/yyyy" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/SaveButton"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/Header"
+        android:layout_toEndOf="@+id/Header"
+        android:layout_marginBottom="62dp" />
+
+</RelativeLayout>

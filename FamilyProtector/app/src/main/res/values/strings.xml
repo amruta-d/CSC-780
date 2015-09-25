@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FamilyProtector</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_choosingmode">choosingmode</string>
+    <string name="title_activity_choosemode">choosemode</string>
+    <string name="title_activity_parent_home_screen">ParentHomeScreen</string>
+    <string name="title_activity_add_child_details">AddChildDetails</string>
+    <string name="title_activity_test">Test</string>
+</resources>

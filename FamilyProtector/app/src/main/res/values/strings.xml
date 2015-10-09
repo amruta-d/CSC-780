@@ -3,9 +3,20 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="my_family">My Family</string>
+    <string name="login_link">Already a member? Sign In</string>
+    <string name="choose_child_text1">Please choose</string>
+    <string name="choose_child_text2">who this device belongs to.</string>
     <string name="title_activity_choosingmode">choosingmode</string>
     <string name="title_activity_choosemode">choosemode</string>
     <string name="title_activity_parent_home_screen">ParentHomeScreen</string>
     <string name="title_activity_add_child_details">AddChildDetails</string>
     <string name="title_activity_test">Test</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_register">Register</string>
+    <string name="title_activity_child_home_screen">Child Home Screen</string>
 </resources>

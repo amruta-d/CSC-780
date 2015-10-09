@@ -4,29 +4,44 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class ChooseMode extends AppCompatActivity {
+public class ChooseMode extends AppCompatActivity implements View.OnClickListener{
 
-    private Button ParentMode;
+    private Button buttonParentMode,buttonChildMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosemode);
         init();
 
-        ParentMode.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
 
-                Intent intent = new Intent(ChooseMode.this, ParentHomeScreen.class);
-                startActivity(intent);
-            }
-        });
+        buttonParentMode.setOnClickListener(this);
+        buttonChildMode.setOnClickListener(this);
+
+//        new OnClickListener() {
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(ChooseMode.this, ParentHomeScreen.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void init(){
-        ParentMode = (Button)findViewById(R.id.ParentMode);
+
+        buttonParentMode = (Button)findViewById(R.id.button_parent_mode);
+        buttonChildMode = (Button)findViewById(R.id.button_child_mode);
+    }
+    public void onClick(View view){
+        switch(view.getId()){
+            case R.id.button_parent_mode:
+                startActivity(new Intent(this,ParentHomeScreen.class));
+                break;
+            case R.id.button_child_mode:
+                startActivity(new Intent(this,ChildHomeScreen.class));
+        }
+
     }
 
 

@@ -7,37 +7,57 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
-public class AddChildDetails extends AppCompatActivity {
-    private TextView Header,ChildName, Gender, Birthday;
-    private EditText NameOfChild,BirthDateText;
-    private RadioButton Male,Female;
-    private Button Save;
+import com.parse.ParseObject;
+
+public class AddChildDetails extends AppCompatActivity implements View.OnClickListener{
+    EditText editTextChildName, editTextBirthDate;
+    RadioButton radioButtonMale, radioButtonFemale;
+    Button buttonSave;
+    public static Child child;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_child_details);
         init();
-        Save.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
 
-                Intent intent = new Intent(AddChildDetails.this, Test.class);
-                startActivity(intent);
-            }
-        });
+        buttonSave.setOnClickListener(this);
+
+
+//        buttonSave.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(AddChildDetails.this, Test.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void init(){
-        Header = (TextView)findViewById(R.id.Header);
-        ChildName = (TextView)findViewById(R.id.ChildName);
-        Gender = (TextView)findViewById(R.id.Gender);
-        Birthday = (TextView)findViewById(R.id.Birthday);
-        NameOfChild = (EditText)findViewById(R.id.NameOfChild);
-        BirthDateText = (EditText)findViewById(R.id.NameOfChild);
-        Male = (RadioButton)findViewById(R.id.Male);
-        Female = (RadioButton)findViewById(R.id.Female);
-        Save = (Button)findViewById(R.id.SaveButton);
+
+        editTextChildName = (EditText)findViewById(R.id.NameOfChild);
+        editTextBirthDate = (EditText)findViewById(R.id.BirthDateText);
+        radioButtonMale = (RadioButton)findViewById(R.id.radio_button_male);
+        radioButtonFemale = (RadioButton)findViewById(R.id.radio_button_female);
+        buttonSave = (Button)findViewById(R.id.button_save);
+    }
+
+    @Override
+    public void onClick(View view){
+        child = new Child(this);
+        storeToParse();
+        startActivity(new Intent(this,ParentHomeScreen.class));
+
+    }
+
+    private void storeToParse (){
+        ParseObject childDetails = new ParseObject("ChildDetails");
+        childDetails.put("username", Login.user.username);
+        childDetails.put("name",child.name);
+        childDetails.put("gender", child.gender);
+        childDetails.put("birthdate",child.birthdate);
+        childDetails.saveInBackground();
+
     }
 
 }

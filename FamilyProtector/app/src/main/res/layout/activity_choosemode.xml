@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Parent Mode"
-        android:id="@+id/ParentMode"
+        android:id="@+id/button_parent_mode"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Child Mode"
-        android:id="@+id/ChildMode"
+        android:id="@+id/button_child_mode"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:text="Please choose the mode for this device"
         android:id="@+id/textContent"
-        android:layout_below="@+id/ParentMode"
+        android:layout_below="@+id/button_parent_mode"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="121dp"
         android:textAlignment="center"

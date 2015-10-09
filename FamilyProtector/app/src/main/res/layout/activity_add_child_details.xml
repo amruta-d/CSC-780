@@ -1,100 +1,117 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.termproject.familyprotector.AddChildDetails"
-    android:id="@+id/Month">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.termproject.familyprotector.AddChildDetails">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Child Details"
-        android:id="@+id/Header"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <LinearLayout
+        android:id="@+id/Month"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Child Name"
-        android:id="@+id/ChildName"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/Header"
-        android:layout_alignLeft="@+id/Header"
-        android:layout_alignStart="@+id/Header" />
+        <TextView
+            android:id="@+id/Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="38dp"
+            android:text="Child Details" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/NameOfChild"
-        android:layout_below="@+id/ChildName"
-        android:layout_alignLeft="@+id/ChildName"
-        android:layout_alignStart="@+id/ChildName" />
+        <TextView
+            android:id="@+id/ChildName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Header"
+            android:layout_alignStart="@+id/Header"
+            android:layout_below="@+id/Header"
+            android:layout_marginTop="31dp"
+            android:text="Child Name" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gender"
-        android:id="@+id/Gender"
-        android:layout_below="@+id/NameOfChild"
-        android:layout_alignLeft="@+id/NameOfChild"
-        android:layout_alignStart="@+id/NameOfChild" />
+        <EditText
+            android:id="@+id/NameOfChild"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ChildName"
+            android:layout_alignStart="@+id/ChildName"
+            android:layout_below="@+id/ChildName"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Male"
-        android:id="@+id/Male"
-        android:layout_below="@+id/Gender"
-        android:layout_alignLeft="@+id/Gender"
-        android:layout_alignStart="@+id/Gender" />
+        <TextView
+            android:id="@+id/Gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/NameOfChild"
+            android:layout_alignStart="@+id/NameOfChild"
+            android:layout_below="@+id/NameOfChild"
+            android:text="Gender" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Female"
-        android:id="@+id/Female"
-        android:singleLine="false"
-        android:layout_alignTop="@+id/Male"
-        android:layout_alignRight="@+id/NameOfChild"
-        android:layout_alignEnd="@+id/NameOfChild" />
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" Birth Date"
-        android:id="@+id/Birthday"
-        android:layout_below="@+id/Male"
-        android:layout_alignLeft="@+id/Male"
-        android:layout_alignStart="@+id/Male" />
+            <RadioButton
+                android:id="@+id/radio_button_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/Gender"
+                android:layout_alignStart="@+id/Gender"
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/BirthDateText"
-        android:layout_below="@+id/Birthday"
-        android:layout_alignLeft="@+id/Birthday"
-        android:layout_alignStart="@+id/Birthday"
-        android:text="mm/dd/yyyy" />
+                android:layout_below="@+id/Gender"
+                android:layout_marginRight="24dp"
+                android:text="Male" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/SaveButton"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/Header"
-        android:layout_toEndOf="@+id/Header"
-        android:layout_marginBottom="62dp" />
+            <RadioButton
+                android:id="@+id/radio_button_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/NameOfChild"
+                android:layout_alignRight="@+id/NameOfChild"
+                android:layout_alignTop="@+id/radio_button_male"
+                android:text="Female" />
+        </RadioGroup>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/Birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radio_button_male"
+            android:layout_alignStart="@+id/radio_button_male"
+            android:layout_below="@+id/radio_button_male"
+            android:text=" Birth Date" />
+
+        <EditText
+            android:id="@+id/BirthDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Birthday"
+            android:layout_alignStart="@+id/Birthday"
+            android:layout_below="@+id/Birthday"
+            android:ems="10"
+            android:hint="mm/dd/yyyy"
+            android:inputType="date" />
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="62dp"
+            android:layout_marginTop="45dp"
+            android:layout_toEndOf="@+id/Header"
+            android:layout_toRightOf="@+id/Header"
+            android:text="Save" />
+
+    </LinearLayout>
+</ScrollView>

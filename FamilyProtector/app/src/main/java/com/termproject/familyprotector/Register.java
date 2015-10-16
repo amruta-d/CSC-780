@@ -16,13 +16,15 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     EditText etUsername, etPassword;
     String username,password;
     TextView textSignIn;
-    User user;
+    User registeredUser;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         init();
+        userLocalStore = new UserLocalStore(this);
 
       //  Log.v("Register",username);
 
@@ -58,6 +60,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         username = etUsername.getText().toString();
         password = etPassword.getText().toString();
         storeToParse();
+        registeredUser = new User(username,password);
+        userLocalStore.storeUserData();
+        userLocalStore.setUserLoggedIn(true);
         startActivity(new Intent(this, ChooseMode.class));
 
 

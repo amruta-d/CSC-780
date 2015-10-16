@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+
     <application
         android:name=".StorageApplication"
         android:allowBackup="true"
@@ -30,7 +31,8 @@
             android:label="Family Protector" />
         <activity
             android:name=".ParentHomeScreen"
-            android:label="@string/title_activity_parent_home_screen" >
+            android:label="@string/title_activity_parent_home_screen"
+            android:theme="@style/AppTheme.Base">
         </activity>
         <activity
             android:name=".AddChildDetails"
@@ -53,6 +55,10 @@
         <activity
             android:name=".ChildHomeScreen"
             android:label="@string/title_activity_child_home_screen" >
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main" >
         </activity>
     </application>
 

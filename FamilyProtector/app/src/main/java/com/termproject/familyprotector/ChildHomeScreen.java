@@ -27,7 +27,7 @@ public class ChildHomeScreen extends AppCompatActivity {
     private void checkChildDetails() {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChildDetails");
-        query.whereEqualTo("username", Login.user.username);
+        query.whereEqualTo("username", User.username);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> children, ParseException e) {
                 if (e == null) {

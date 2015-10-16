@@ -15,6 +15,7 @@ public class AddChildDetails extends AppCompatActivity implements View.OnClickLi
     RadioButton radioButtonMale, radioButtonFemale;
     Button buttonSave;
     public static Child child;
+    UserLocalStore userLocalStore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,7 @@ public class AddChildDetails extends AppCompatActivity implements View.OnClickLi
 
     private void storeToParse (){
         ParseObject childDetails = new ParseObject("ChildDetails");
-        childDetails.put("username", Login.user.username);
+        childDetails.put("username", User.username);
         childDetails.put("name",child.name);
         childDetails.put("gender", child.gender);
         childDetails.put("birthdate",child.birthdate);

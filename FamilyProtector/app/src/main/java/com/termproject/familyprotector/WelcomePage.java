@@ -5,30 +5,60 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class WelcomePage extends AppCompatActivity {
+public class WelcomePage extends AppCompatActivity implements View.OnClickListener{
 
     private Button Continue;
+    UserLocalStore userLocalStore;
+    User user;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        Log.v("WelcomePage","I am here");
+        //      Log.v("WelcomePage","I am here");
 
         init();
+        userLocalStore = new UserLocalStore(this);
 
-        Continue.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-
-                Intent intent = new Intent(WelcomePage.this, Register.class);
-                startActivity(intent);
-            }
-        });
+        Continue.setOnClickListener(this);
 
     }
+//    @Override
+//    protected void onStart(){
+//        super.onStart();
+//
+//        if (authenticate()){
+//
+//        }
+//
+//
+//    }
+    private boolean authenticate(){
+
+        return userLocalStore.getUserLoggedIn();
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        boolean value = authenticate();
+       Log.v("Welcome", String.valueOf(value));
+        if (value) {
+           // Log.v("welcome", "inside if loop");
+            user = userLocalStore.getLoggedInUser();
+            Intent intent = new Intent(this, ParentHomeScreen.class);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(this, Register.class);
+            startActivity(intent);
+
+        }
+    }
+
 
     private void init(){
         Continue = (Button)findViewById(R.id.Continue);

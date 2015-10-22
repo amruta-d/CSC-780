@@ -17,13 +17,17 @@
     <string name="about">About</string>
     <string name="drawer_open">Drawer opened</string>
     <string name="drawer_close">Drawer closed</string>
+    <string name="rules">Rules</string>
+    <string name="button_location_perimeter">Location Perimeter</string>
     <string name="title_activity_choosingmode">choosingmode</string>
     <string name="title_activity_choosemode">choosemode</string>
-    <string name="title_activity_parent_home_screen">ParentHomeScreen</string>
-    <string name="title_activity_add_child_details">AddChildDetails</string>
+    <string name="title_activity_parent_home_screen">Parent Home Screen</string>
+    <string name="title_activity_add_child_details">Add Child Details</string>
     <string name="title_activity_test">Test</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_child_home_screen">Child Home Screen</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Main Activity</string>
+    <string name="title_activity_rules_setter">Rules Setter</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

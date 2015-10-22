@@ -48,9 +48,17 @@ public class WelcomePage extends AppCompatActivity implements View.OnClickListen
        Log.v("Welcome", String.valueOf(value));
         if (value) {
            // Log.v("welcome", "inside if loop");
-            user = userLocalStore.getLoggedInUser();
-            Intent intent = new Intent(this, ParentHomeScreen.class);
-            startActivity(intent);
+            String appMode = userLocalStore.getAppMode();
+            if(appMode.equals("parent")) {
+                user = userLocalStore.getLoggedInUser();
+                Intent intent = new Intent(this, ParentHomeScreen.class);
+                startActivity(intent);
+            }
+            else if (appMode.equals("child")){
+                user = userLocalStore.getLoggedInUser();
+                Intent intent = new Intent(this, RulesSetter.class);
+                startActivity(intent);
+            }
         }
         else{
             Intent intent = new Intent(this, Register.class);

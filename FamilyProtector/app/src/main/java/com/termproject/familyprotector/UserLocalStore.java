@@ -56,6 +56,18 @@ public class UserLocalStore {
         }
 
     }
+    public void setAppMode(String appMode){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("appMode", appMode);
+        spEditor.commit();
+    }
+    public String getAppMode(){
+
+
+        String appMode = userLocalDatabase.getString("appMode","");
+        return appMode;
+
+    }
     public void clearUserData(){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.clear();

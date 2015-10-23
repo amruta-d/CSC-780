@@ -18,7 +18,12 @@
     <string name="drawer_open">Drawer opened</string>
     <string name="drawer_close">Drawer closed</string>
     <string name="rules">Rules</string>
+
     <string name="button_location_perimeter">Location Perimeter</string>
+
+    <string name="action_search">Search</string>
+    <string name="search_hint">Search Places</string>
+    <string name="search_settings">Search Places</string>
     <string name="title_activity_choosingmode">choosingmode</string>
     <string name="title_activity_choosemode">choosemode</string>
     <string name="title_activity_parent_home_screen">Parent Home Screen</string>

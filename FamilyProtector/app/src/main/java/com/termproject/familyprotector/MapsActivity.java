@@ -1,10 +1,10 @@
 package com.termproject.familyprotector;
 
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -13,14 +13,28 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private SensorManager sensorManager;
-    private Sensor accelerometer;
+    GPSTracker gps;
+    double latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+
+        gps = new GPSTracker(this);
+        if(gps.canGetLocationCheck()){
+            latitude = gps.getLatitudeVal();
+            longitude = gps.getLongitudeVal();
+
+            Log.v("maps","Lat: "+latitude+"\n"+longitude);
+
+
+        }
+
         setUpMapIfNeeded();
+
+
 
     }
 
@@ -66,6 +80,8 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("Current Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,longitude),14.9f
+        ));
     }
 }

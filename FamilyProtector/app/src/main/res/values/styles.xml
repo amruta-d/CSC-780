@@ -5,15 +5,17 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#009688</item>
         <item name="colorPrimaryDark">#00796B</item>
-        <item name="colorAccent">#536DFE</item>
+        <item name="colorAccent">#009688</item>
         <item name="colorButtonNormal">#009688</item>
     </style>
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#009688</item>
         <item name="colorPrimaryDark">#00796B</item>
-        <item name="colorAccent">#536DFE</item>
+        <item name="colorAccent">#009688</item>
         <item name="colorButtonNormal">#009688</item>
+
     </style>
+
 
 </resources>

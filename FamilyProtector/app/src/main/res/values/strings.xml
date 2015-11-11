@@ -24,6 +24,14 @@
     <string name="action_search">Search</string>
     <string name="search_hint">Search Places</string>
     <string name="search_settings">Search Places</string>
+    <string name="dialog_address">Address :</string>
+    <string name="dialog_location_hint">Location type: e.g. school, home</string>
+    <string name="dialog_perimeter_hint">Enter a perimeter for the location</string>
+    <string name="dialog_distance_units">miles</string>
+
+
+
+
     <string name="title_activity_choosingmode">choosingmode</string>
     <string name="title_activity_choosemode">choosemode</string>
     <string name="title_activity_parent_home_screen">Parent Home Screen</string>

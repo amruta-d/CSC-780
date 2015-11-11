@@ -1,9 +1,9 @@
 package com.termproject.familyprotector;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,7 +15,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class ChildHomeScreen extends AppCompatActivity {
+public class ChildHomeScreen extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

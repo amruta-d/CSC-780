@@ -1,5 +1,6 @@
 package com.termproject.familyprotector;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,7 @@ import android.widget.RadioButton;
 
 import com.parse.ParseObject;
 
-public class AddChildDetails extends AppCompatActivity implements View.OnClickListener{
+public class AddChildDetails extends Activity implements View.OnClickListener{
     EditText editTextChildName, editTextBirthDate;
     RadioButton radioButtonMale, radioButtonFemale;
     Button buttonSave;

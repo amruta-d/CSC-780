@@ -1,12 +1,12 @@
 package com.termproject.familyprotector;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class ChooseMode extends AppCompatActivity implements View.OnClickListener{
+public class ChooseMode extends Activity implements View.OnClickListener{
 
     private Button buttonParentMode,buttonChildMode;
     UserLocalStore userLocalStore;
@@ -44,7 +44,7 @@ public class ChooseMode extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.button_child_mode:
                 userLocalStore.setAppMode("child");
-                startActivity(new Intent(this,ChildHomeScreen.class));
+                startActivity(new Intent(this,RulesSetter.class));
         }
 
     }

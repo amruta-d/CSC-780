@@ -24,10 +24,13 @@
     <string name="action_search">Search</string>
     <string name="search_hint">Search Places</string>
     <string name="search_settings">Search Places</string>
+    <string name="dialog_title">Save the location</string>
     <string name="dialog_address">Address :</string>
-    <string name="dialog_location_hint">Location type: e.g. school, home</string>
-    <string name="dialog_perimeter_hint">Enter a perimeter for the location</string>
-    <string name="dialog_distance_units">miles</string>
+    <string name="dialog_location_type">Location type:</string>
+    <string name="dialog_location_perimeter">Location perimeter:</string>
+    <string name="dialog_location_hint">E.g. school, home</string>
+    <string name="dialog_perimeter_hint">Enter a radius for location</string>
+    <string name="dialog_distance_units">meters</string>
 
 
 

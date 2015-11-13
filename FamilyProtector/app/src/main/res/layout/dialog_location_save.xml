@@ -9,7 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/dialog_address" />
+        android:text="@string/dialog_address"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/text_address"
@@ -17,16 +19,33 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/dialog_location_type"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/edit_location_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="8dp"
         android:hint="@string/dialog_location_hint" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/dialog_location_perimeter"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,6 +59,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginTop="8dp"
+            android:inputType="numberDecimal"
             android:hint="@string/dialog_perimeter_hint" />
 
         <TextView
@@ -49,6 +69,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginTop="8dp"
+            android:textSize="18sp"
             />
     </LinearLayout>
 

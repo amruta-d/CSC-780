@@ -56,10 +56,6 @@
             android:label="@string/title_activity_add_child_details" >
         </activity>
         <activity
-            android:name=".Test"
-            android:label="@string/title_activity_test" >
-        </activity>
-        <activity
             android:name=".Register"
             android:label="@string/title_activity_register"
             android:noHistory="true" >
@@ -72,10 +68,6 @@
         <activity
             android:name=".ChildHomeScreen"
             android:label="@string/title_activity_child_home_screen" >
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
         </activity>
         <activity
             android:name=".RulesSetter"

@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,13 +19,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.Geofence;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -40,30 +44,32 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-;
-
-public class MapsActivity extends AppCompatActivity implements View.OnClickListener {
+public class MapsActivity extends AppCompatActivity implements View.OnClickListener,GoogleMap.OnMapLongClickListener {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     GPSTracker gps;
     double latitude, longitude;
     Marker marker;
+    Circle circle;
+    Paint mPaint;
     HttpURLConnection urlConnection = null;
     FloatingActionButton floatingActionButton;
     String addressString = "";
     String locationNameStr;
     float locationPerimeterValue;
     EditText locationNameEditText, locationPerimeterEditText;
-    Context context = this;
-    Geofence geofence;
+    String queryParam;
+    SeekBar geofenceRadiusSeekBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floating_action_button);
+        geofenceRadiusSeekBar = (SeekBar)findViewById(R.id.geofence_radius_bar);
         floatingActionButton.setOnClickListener(MapsActivity.this);
-        String queryParam;
+
 
 
         gps = new GPSTracker(this);
@@ -85,8 +91,7 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
         MapSearchTask mapSearchTask = new MapSearchTask();
         mapSearchTask.execute(queryParam);
 
-
-
+        mMap.setOnMapLongClickListener(this);
     }
 
     public void onClick(View view) {
@@ -119,7 +124,9 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
                             }
 
                             saveRuleLocation();
-                            String toastStr = "Rule Location saved";
+                            createGeofenceCirlce();
+                            geofenceRadiusSeekBar.setVisibility(View.VISIBLE);
+                            String toastStr = "Location with perimeter";
                             Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
                         }
@@ -134,6 +141,21 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
             AlertDialog alertDialog = dialogPerimeter.create();
             alertDialog.show();
         }
+    }
+    
+
+    @Override
+    public void onMapLongClick(LatLng point){
+        marker.remove();
+        if(circle!=null){
+            circle.remove();
+        }
+        marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)).title("New Location"));
+        marker.showInfoWindow();
+        MapSearchTask mapSearchTask = new MapSearchTask();
+        queryParam = Double.toString(point.latitude) + "," + Double.toString(point.longitude);
+        mapSearchTask.execute(queryParam);
+
     }
 
 
@@ -196,6 +218,30 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
         ruleLocation.put("locationRadius", locationPerimeterValue);
         ruleLocation.saveInBackground();
 
+
+
+    }
+
+    public void createGeofenceCirlce(){
+        Log.v("1.latitude and lon","Latitude: "+Double.toString(latitude)+"Long: "+ Double.toString(longitude));
+        if(circle!=null){
+            circle.remove();
+        }
+
+        circle = mMap.addCircle(new CircleOptions()
+                .center(new LatLng(latitude, longitude))
+                .radius(locationPerimeterValue)
+                .strokeColor(Color.parseColor("#0084d3"))
+                .fillColor(Color.parseColor("#500084d3")));
+
+        if(mMap.getCameraPosition().zoom ==16.9f)
+        {
+            mMap.moveCamera(CameraUpdateFactory.zoomBy(2.5f));
+
+        }
+
+
+
     }
 
     public class MapSearchTask extends AsyncTask<String, Void, HashMap<String, String>> {
@@ -223,14 +269,17 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 //                URL url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?query=Thornton+Hall,+San+Francisco+State+University,+1600+Holloway+Ave,+San+Francisco,+CA+94132&key=AIzaSyAUSETHO5_4d_lGrGfjX4vAowf6DrqaNmk");
 
                 // Create the request to Google Palces, and open the connection
+
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
+
 
                 // Read the input stream into a String
                 InputStream inputStream = urlConnection.getInputStream();
                 StringBuffer buffer = new StringBuffer();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                Log.v("maps", "i am here!!");
 
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -248,6 +297,9 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 //                location.put("lng",Double.parseDouble(locationObject.getString("lng")));
                 location.put("lat", locationObject.getString("lat"));
                 location.put("lng", locationObject.getString("lng"));
+//                location.put("addressStr", "hello");
+//                location.put("lat", "37.69743690000001");
+//                location.put("lng", "122.4802931");
                 Log.v("MAPS - LNG", locationObject.getString("lat"));
                 Log.v("MAPS - LNG", locationObject.getString("lng"));
                 Log.v("MAPS - LNG", resultsArr.getJSONObject(0).getString("formatted_address"));
@@ -268,13 +320,14 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(HashMap<String, String> locationMap) {
             String markerTitle = locationMap.get("addressStr");
             addressString = locationMap.get("addressStr");
-            double latitude = Double.parseDouble(locationMap.get("lat"));
-            double longitude = Double.parseDouble(locationMap.get("lng"));
+            latitude = Double.parseDouble(locationMap.get("lat"));
+            longitude = Double.parseDouble(locationMap.get("lng"));
             marker.remove();
+
+
             setUpMap(latitude, longitude, markerTitle);
         }
     }
-
 
     @Override
     protected void onResume() {
@@ -318,15 +371,16 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap(double latitude, double longitude, String titleStr) {
+
         marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title(titleStr));
         marker.showInfoWindow();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16.9f));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16.9f));
+
+        if(circle!=null){
+            createGeofenceCirlce();
+        }
+
 
         //   handleIntent(getIntent());
     }
-
-
-
-
-
 }

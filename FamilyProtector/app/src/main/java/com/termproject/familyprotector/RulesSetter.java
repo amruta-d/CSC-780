@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class RulesSetter extends AppCompatActivity implements View.OnClickListener{
-    Button buttonLocationPerimeter;
+    Button buttonLocationPerimeter, buttonGeofences;
     private android.support.v7.widget.Toolbar mToolBar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -25,7 +25,9 @@ public class RulesSetter extends AppCompatActivity implements View.OnClickListen
 
         setContentView(R.layout.activity_rules_setter);
         buttonLocationPerimeter = (Button)findViewById(R.id.button_location_perimeter);
+        buttonGeofences = (Button)findViewById(R.id.button_geofences);
         buttonLocationPerimeter.setOnClickListener(this);
+        buttonGeofences.setOnClickListener(this);
 
 
         try {
@@ -68,7 +70,14 @@ public class RulesSetter extends AppCompatActivity implements View.OnClickListen
 
     public void onClick(View view){
 
-        startActivity(new Intent(this,MapsActivity.class));
+        switch (view.getId()) {
+            case R.id.button_location_perimeter:
+                startActivity(new Intent(this, MapsActivity.class));
+                break;
+            case R.id.button_geofences:
+                startActivity(new Intent(this, GeofencesActivity.class));
+                break;
+        }
 
 
     }

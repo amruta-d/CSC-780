@@ -6,7 +6,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -51,7 +50,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
     double latitude, longitude;
     Marker marker;
     Circle circle;
-    Paint mPaint;
     HttpURLConnection urlConnection = null;
     FloatingActionButton floatingActionButton;
     String addressString = "";

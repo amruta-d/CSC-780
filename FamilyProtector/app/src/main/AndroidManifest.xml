@@ -114,6 +114,11 @@
             android:name=".GeofenceTransitionsIntentService"
             android:exported="false" >
         </service>
+
+        <activity
+            android:name=".ChildDetailActivity"
+            android:label="@string/title_activity_child_detail" >
+        </activity>
     </application>
 
 </manifest>

@@ -67,4 +67,5 @@
     <string name="title_activity_rules_setter">Rules Setter</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_geofences">geofencesActivity</string>
+    <string name="title_activity_child_detail">ChildDetailActivity</string>
 </resources>

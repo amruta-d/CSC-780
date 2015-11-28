@@ -6,8 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -23,21 +25,25 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class ParentHomeScreen extends ActionBarActivity implements View.OnClickListener {
+public class ParentHomeScreen extends AppCompatActivity implements View.OnClickListener {
 
-    private Button AddChild;
+    private Button buttonAddChild;
     int noOfChildren;
     private android.support.v7.widget.Toolbar mToolBar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private RecyclerView mRecyclerView;
+    private RecyclerAdapter mAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent_home_screen);
-        checkChildDetails();
-        init();
+        buttonAddChild = (Button) findViewById(R.id.AddChild);
+        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        getChildrenDetailsFromParse();
 
 
         try {
@@ -79,7 +85,7 @@ public class ParentHomeScreen extends ActionBarActivity implements View.OnClickL
 
 
 
-        AddChild.setOnClickListener(new View.OnClickListener() {
+        buttonAddChild.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 Intent intent = new Intent(ParentHomeScreen.this, AddChildDetails.class);
@@ -90,11 +96,8 @@ public class ParentHomeScreen extends ActionBarActivity implements View.OnClickL
 
     }
 
-    private void init() {
-        AddChild = (Button) findViewById(R.id.AddChild);
-    }
 
-    private void checkChildDetails() {
+    private void getChildrenDetailsFromParse() {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChildDetails");
         query.whereEqualTo("username", User.username);
@@ -102,16 +105,24 @@ public class ParentHomeScreen extends ActionBarActivity implements View.OnClickL
             public void done(List<ParseObject> children, ParseException e) {
                 if (e == null) {
                     if (children.size() > 0) {
-                        for (int i = 0; i < children.size(); i++) {
-                            ParseObject child = children.get(i);
-                            showChildButton(child, i + 1);
 
-                        }
+                        mAdapter = new RecyclerAdapter (ParentHomeScreen.this, children);
+                        mRecyclerView.setAdapter(mAdapter);
 
-
-                    } else {
 
                     }
+
+
+//                        for (int i = 0; i < children.size(); i++) {
+//                            ParseObject child = children.get(i);
+////                            showChildButton(child, i + 1);
+//
+//                        }
+//
+//
+//                    } else {
+//
+//                    }
                 } else {
                     Log.d("Login", "Error: " + e.getMessage());
                 }
@@ -129,7 +140,7 @@ public class ParentHomeScreen extends ActionBarActivity implements View.OnClickL
         Button childButton = new Button(this);
         childButton.setId(buttonId);
         childButton.setText(child.getString("name"));
-        childButton.setBackgroundColor(Color.parseColor("#c5c1c1"));
+        childButton.setBackgroundColor(Color.parseColor("#F98F22"));
 
         childButton.setCompoundDrawables(icon, null, null, null);
         LinearLayout ll = (LinearLayout) findViewById(R.id.linear_layout);

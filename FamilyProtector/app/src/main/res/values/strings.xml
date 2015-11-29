@@ -18,16 +18,21 @@
     <string name="drawer_open">Drawer opened</string>
     <string name="drawer_close">Drawer closed</string>
     <string name="rules">Rules</string>
+    <string name="continue_button">Continue</string>
     <string name="not_connected">GoogleApiClient no yet connected. Try again.</string>
     <string name="button_location_perimeter">Location Perimeter</string>
+    <string name="button_save_text">Save</string>
 
     <string name="action_search">Search</string>
     <string name="search_hint">Search Places</string>
     <string name="search_settings">Search Places</string>
     <string name="dialog_title">Save the location</string>
+    <string name="dialog_child">Rule For :</string>
     <string name="dialog_address">Address :</string>
-    <string name="dialog_location_type">Location type:</string>
+    <string name="dialog_location_type">Location type :</string>
     <string name="dialog_location_perimeter">Location perimeter:</string>
+    <string name="dialog_location_time_from">From :</string>
+    <string name="dialog_location_time_to">To :</string>
     <string name="dialog_location_hint">E.g. school, home</string>
     <string name="dialog_perimeter_hint">Enter a radius for location</string>
     <string name="dialog_distance_units">meters</string>
@@ -68,4 +73,10 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_geofences">geofencesActivity</string>
     <string name="title_activity_child_detail">ChildDetailActivity</string>
+    <string name="title_activity_save_rule_location">SaveRuleLocationActivity</string>
+    <string name="title_activity_child_location_rule_save">ChildLocationRuleSaveActivity</string>
+    <string name="add_geofences">Add geofences</string>
+    <string name="remove_geofences">Remove geofences</string>
+    <string name="geofences_added">Geofences added</string>
+    <string name="geofences_removed">Geofences removed</string>
 </resources>

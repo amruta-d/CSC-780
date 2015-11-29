@@ -59,6 +59,10 @@ public class WelcomePage extends AppCompatActivity implements View.OnClickListen
                 Intent intent = new Intent(this, RulesSetter.class);
                 startActivity(intent);
             }
+            else {
+                Intent intent = new Intent(this, ChooseMode.class);
+                startActivity(intent);
+            }
         }
         else{
             Intent intent = new Intent(this, Register.class);

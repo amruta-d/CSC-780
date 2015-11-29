@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -16,9 +17,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,11 +54,12 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
     HttpURLConnection urlConnection = null;
     FloatingActionButton floatingActionButton;
     String addressString = "";
-    String locationNameStr;
+    String locationNameStr, childNameStr;
     float locationPerimeterValue;
     EditText locationNameEditText, locationPerimeterEditText;
     String queryParam;
-    SeekBar geofenceRadiusSeekBar;
+    UserLocalStore userLocalStore;
+    Button continueButton;
 
 
     @Override
@@ -65,10 +67,8 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floating_action_button);
-        geofenceRadiusSeekBar = (SeekBar)findViewById(R.id.geofence_radius_bar);
-        floatingActionButton.setOnClickListener(MapsActivity.this);
-
-
+        continueButton = (Button) findViewById(R.id.rule_location_continue_button);
+        userLocalStore = new UserLocalStore(this);
 
         gps = new GPSTracker(this);
         if (gps.canGetLocationCheck()) {
@@ -89,42 +89,48 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
         MapSearchTask mapSearchTask = new MapSearchTask();
         mapSearchTask.execute(queryParam);
 
+        floatingActionButton.setOnClickListener(this);
         mMap.setOnMapLongClickListener(this);
+        continueButton.setOnClickListener(this);
+
     }
 
     public void onClick(View view) {
         if (view.getId() == R.id.floating_action_button) {
             LayoutInflater layoutInflater = LayoutInflater.from(this);
-            View perimeterSaver = layoutInflater.inflate(R.layout.dialog_location_save,null);
+            View perimeterCreator = layoutInflater.inflate(R.layout.dialog_location_save, null);
             AlertDialog.Builder dialogPerimeter = new AlertDialog.Builder(this);
             dialogPerimeter.setTitle(R.string.dialog_title);
-            dialogPerimeter.setView(perimeterSaver);
-            TextView locationAddress = (TextView) perimeterSaver.findViewById(R.id.text_address);
-            locationNameEditText = (EditText) perimeterSaver.findViewById(R.id.edit_location_name);
-            locationPerimeterEditText = (EditText) perimeterSaver.findViewById(R.id.edit_location_perimeter);
-            locationAddress.setText(addressString);
+            dialogPerimeter.setView(perimeterCreator);
+            TextView childNameTextView = (TextView) perimeterCreator.findViewById(R.id.text_childName);
+            TextView locationAddressTextView = (TextView) perimeterCreator.findViewById(R.id.text_address);
+//            locationNameEditText = (EditText) perimeterCreator.findViewById(R.id.edit_location_name);
+            locationPerimeterEditText = (EditText) perimeterCreator.findViewById(R.id.edit_location_perimeter);
+            childNameStr = userLocalStore.getChildDetails();
+            childNameTextView.setText(childNameStr);
+            locationAddressTextView.setText(addressString);
             dialogPerimeter
                     .setCancelable(false)
-                    .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("View Perimeter", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            locationNameStr = locationNameEditText.getText().toString();
+//                            locationNameStr = locationNameEditText.getText().toString();
                             String locationPerimeterStr = locationPerimeterEditText.getText().toString();
-                            if(locationNameStr.matches("")){
-                                locationNameStr = "Rule Location";
-                            }
+//                            if(locationNameStr.matches("")){
+//                                locationNameStr = "Rule Location";
+//                            }
                             if(locationPerimeterStr.matches("")){
-                                locationPerimeterValue = 60.0f;
+                                locationPerimeterValue = 30.0f;
                             }
                             else{
                                 locationPerimeterValue = Float.valueOf(locationPerimeterStr);
                             }
 
-                            saveRuleLocation();
-                            createGeofenceCirlce();
-                            geofenceRadiusSeekBar.setVisibility(View.VISIBLE);
+//                            saveRuleLocation();
+                            createGeofenceCircle();
                             String toastStr = "Location with perimeter";
+                            continueButton.setVisibility(View.VISIBLE);
                             Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
                         }
@@ -138,6 +144,15 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
                     });
             AlertDialog alertDialog = dialogPerimeter.create();
             alertDialog.show();
+        }
+        else if (view.getId() == R.id.rule_location_continue_button){
+
+            userLocalStore.setLocationAddress(addressString);
+            userLocalStore.setLocationPerimeter(locationPerimeterValue);
+            userLocalStore.setLocationLatitude(latitude);
+            userLocalStore.setLocationLongitude(longitude);
+            startActivity(new Intent(this, ChildLocationRuleSaveActivity.class));
+
         }
     }
     
@@ -216,11 +231,9 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
         ruleLocation.put("locationRadius", locationPerimeterValue);
         ruleLocation.saveInBackground();
 
-
-
     }
 
-    public void createGeofenceCirlce(){
+    public void createGeofenceCircle(){
         Log.v("1.latitude and lon","Latitude: "+Double.toString(latitude)+"Long: "+ Double.toString(longitude));
         if(circle!=null){
             circle.remove();
@@ -375,7 +388,7 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16.9f));
 
         if(circle!=null){
-            createGeofenceCirlce();
+            createGeofenceCircle();
         }
 
 

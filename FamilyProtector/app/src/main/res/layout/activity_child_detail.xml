@@ -9,9 +9,26 @@
     tools:context="com.termproject.familyprotector.ChildDetailActivity">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setting Rule for: "
+        android:id="@+id/set_rule_text_view" />
+
+    <TextView
         android:id="@+id/child_detail_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hey there testing for text" />
+        android:text="Hey there testing for text"
+        android:layout_alignTop="@+id/set_rule_text_view"
+        android:layout_toEndOf="@+id/set_rule_text_view" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_rule_floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_icon_plus"/>
 
 </RelativeLayout>

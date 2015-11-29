@@ -23,15 +23,17 @@
         android:src="@drawable/ic_icon_plus"/>
 
 
-    <SeekBar
-        android:id="@+id/geofence_radius_bar"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/rule_location_continue_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_centerInParent="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:visibility="invisible"
-        android:max="200" >
-    </SeekBar>
+        android:text="@string/continue_button">
+    </Button>
 
 
 

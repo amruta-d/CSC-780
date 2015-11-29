@@ -62,16 +62,62 @@ public class UserLocalStore {
         spEditor.commit();
     }
     public String getAppMode(){
-
-
         String appMode = userLocalDatabase.getString("appMode","");
         return appMode;
-
     }
+    public void setChildDetails(String childName){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("childName", childName);
+        spEditor.commit();
+    }
+    public String getChildDetails(){
+        String childName = userLocalDatabase.getString("childName","");
+        return childName;
+    }
+    public void setLocationAddress(String addressString){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("addressString", addressString);
+        spEditor.commit();
+    }
+    public String getLocationAddress(){
+        String addressStr = userLocalDatabase.getString("addressString","");
+        return addressStr;
+    }
+
+    public void setLocationPerimeter( float perimeterValue){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putFloat("perimeterValue", perimeterValue);
+        spEditor.commit();
+    }
+    public float getLocationPerimeter(){
+        float perimeterValue = userLocalDatabase.getFloat("perimeterValue", 30.0f);
+        return perimeterValue;
+    }
+
+    public void setLocationLatitude( double latitude){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putLong("latitude", Double.doubleToLongBits(latitude));
+        spEditor.commit();
+    }
+    public double getLocationLatitude(){
+        double latitude = Double.longBitsToDouble(userLocalDatabase.getLong("latitude", Double.doubleToLongBits(37.72189700000001)));
+        return latitude;
+    }
+
+    public void setLocationLongitude( double longitude){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putLong("longitude", Double.doubleToLongBits(longitude));
+        spEditor.commit();
+    }
+    public double getLocationLongitude(){
+        double longitude = Double.longBitsToDouble(userLocalDatabase.getLong("longitude", Double.doubleToLongBits(-122.4782094)));
+        return longitude;
+    }
+
+
     public void clearUserData(){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.clear();
         spEditor.commit();
-
     }
 }

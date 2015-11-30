@@ -44,7 +44,7 @@ public class ChooseMode extends Activity implements View.OnClickListener{
                 break;
             case R.id.button_child_mode:
                 userLocalStore.setAppMode("child");
-                startActivity(new Intent(this,RulesSetter.class));
+                startActivity(new Intent(this,ChildHomeScreen.class));
         }
 
     }

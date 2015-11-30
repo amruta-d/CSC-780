@@ -27,13 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeofencesActivity extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
+        View.OnClickListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
 
     protected static final String TAG = "MainActivity";
 
-    /**
-     * Provides the entry point to Google Play services.
-     */
     protected GoogleApiClient mGoogleApiClient;
 
     /**
@@ -59,16 +56,18 @@ public class GeofencesActivity extends AppCompatActivity implements
     // Buttons for kicking off the process of adding or removing geofences.
     private Button mAddGeofencesButton;
     private Button mRemoveGeofencesButton;
+    UserLocalStore userLocalStore;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geofences);
+        mAddGeofencesButton = (Button)findViewById(R.id.add_geofences_button);
+
 
         // Get the UI widgets.
-        mAddGeofencesButton = (Button) findViewById(R.id.add_geofences_button);
-        mRemoveGeofencesButton = (Button) findViewById(R.id.remove_geofences_button);
+        userLocalStore = new UserLocalStore(this);
 
         // Empty list for storing geofences.
         mGeofenceList = new ArrayList<Geofence>();
@@ -82,19 +81,21 @@ public class GeofencesActivity extends AppCompatActivity implements
 
         // Get the value of mGeofencesAdded from SharedPreferences. Set to false as a default.
         mGeofencesAdded = mSharedPreferences.getBoolean(Constants.GEOFENCES_ADDED_KEY, false);
-        setButtonsEnabledState();
-        readGeoFenceFromParse();
+//        setButtonsEnabledState();
+//        readGeoFenceDataFromParse();
 
         // Get the geofences used. Geofence data is hard coded in this sample.
 //        populateGeofenceList();
 
         // Kick off the request to build GoogleApiClient.
         buildGoogleApiClient();
+        mAddGeofencesButton.setOnClickListener(this);
     }
 
     /**
      * Builds a GoogleApiClient. Uses the {@code #addApi} method to request the LocationServices API.
      */
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -103,27 +104,36 @@ public class GeofencesActivity extends AppCompatActivity implements
                 .build();
     }
 
-    private void readGeoFenceFromParse(){
+    private void readGeoFenceDataFromParse(){
+        Log.v("in parse", "i am in parse method");
+        User user = userLocalStore.getLoggedInUser();
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChildRuleLocation");
-        query.whereEqualTo("username", User.username);
+        Log.v("in parse", user.getUsername());
+        query.whereEqualTo("userName", user.getUsername());
+        Log.v("in parse", user.getUsername());
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> childrenLocationRules, ParseException e) {
+                Log.v("geofence", "in done");
                 if (e == null) {
                     if (childrenLocationRules.size() > 0) {
                         for (int i = 0; i < childrenLocationRules.size(); i++) {
 
                             String locationID = "RuleLocation"+i;
 
-                            ParseObject geoFenceDetail = childrenLocationRules.get(i);
-                            ParseGeoPoint ruleLatLng = (ParseGeoPoint)geoFenceDetail.get("geopoint");
+                            ParseObject childRuleLocationRow = childrenLocationRules.get(i);
+                            ParseGeoPoint ruleLatLng = (ParseGeoPoint)childRuleLocationRow.get("geopoint");
                             double latitude = ruleLatLng.getLatitude();
                             double longitude = ruleLatLng.getLongitude();
-                            float locationRadius = (float) geoFenceDetail.getNumber("locationRadius");
+                            float locationRadius = childRuleLocationRow.getNumber("locationRadius").floatValue();
+                            Log.v("check values", locationID+"---"+latitude+"---"+longitude+"---"+locationRadius);
                             populateGeofenceList(locationID, latitude, longitude, locationRadius);
 
                         }
-
-
+                        addGeofencesButtonHandler();
+                    }
+                    else{
+                        Log.v("geofence", "in else part");
                     }
                 }
                 else {
@@ -191,7 +201,7 @@ public class GeofencesActivity extends AppCompatActivity implements
      * Adds geofences, which sets alerts to be notified when the device enters or exits one of the
      * specified geofences. Handles the success or failure results returned by addGeofences().
      */
-    public void addGeofencesButtonHandler(View view) {
+    public void addGeofencesButtonHandler() {
         if (!mGoogleApiClient.isConnected()) {
             Toast.makeText(this, getString(R.string.not_connected), Toast.LENGTH_SHORT).show();
             return;
@@ -260,7 +270,7 @@ public class GeofencesActivity extends AppCompatActivity implements
 
             // Update the UI. Adding geofences enables the Remove Geofences button, and removing
             // geofences enables the Add Geofences button.
-            setButtonsEnabledState();
+//            setButtonsEnabledState();
 
             Toast.makeText(
                     this,
@@ -323,19 +333,29 @@ public class GeofencesActivity extends AppCompatActivity implements
                     .build());
         }
 
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.add_geofences_button){
+
+            readGeoFenceDataFromParse();
+
+        }
+
+    }
+
     /**
      * Ensures that only one button is enabled at any time. The Add Geofences button is enabled
      * if the user hasn't yet added geofences. The Remove Geofences button is enabled if the
      * user has added geofences.
      */
-    private void setButtonsEnabledState() {
-        if (mGeofencesAdded) {
-            mAddGeofencesButton.setEnabled(false);
-            mRemoveGeofencesButton.setEnabled(true);
-        } else {
-            mAddGeofencesButton.setEnabled(true);
-            mRemoveGeofencesButton.setEnabled(false);
-        }
-    }
+//    private void setButtonsEnabledState() {
+//        if (mGeofencesAdded) {
+//            mAddGeofencesButton.setEnabled(false);
+//            mRemoveGeofencesButton.setEnabled(true);
+//        } else {
+//            mAddGeofencesButton.setEnabled(true);
+//            mRemoveGeofencesButton.setEnabled(false);
+//        }
+//    }
 
 }

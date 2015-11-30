@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class RulesSetter extends AppCompatActivity implements View.OnClickListener{
@@ -18,6 +19,9 @@ public class RulesSetter extends AppCompatActivity implements View.OnClickListen
     private android.support.v7.widget.Toolbar mToolBar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    TextView childNameForPhoneText;
+    UserLocalStore userLocalStore;
+    String childForThisPhoneStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,10 @@ public class RulesSetter extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_rules_setter);
         buttonLocationPerimeter = (Button)findViewById(R.id.button_location_perimeter);
         buttonGeofences = (Button)findViewById(R.id.button_geofences);
+        childNameForPhoneText = (TextView)findViewById(R.id.child_name_for_phone_text);
+        userLocalStore =  new UserLocalStore(this);
+        childForThisPhoneStr = userLocalStore.getChildForThisPhone();
+        childNameForPhoneText.setText(childForThisPhoneStr);
         buttonLocationPerimeter.setOnClickListener(this);
         buttonGeofences.setOnClickListener(this);
 
@@ -68,6 +76,7 @@ public class RulesSetter extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    @Override
     public void onClick(View view){
 
         switch (view.getId()) {
@@ -75,6 +84,7 @@ public class RulesSetter extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(this, MapsActivity.class));
                 break;
             case R.id.button_geofences:
+
                 startActivity(new Intent(this, GeofencesActivity.class));
                 break;
         }

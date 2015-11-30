@@ -9,6 +9,7 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="my_family">My Family</string>
+    <string name="choose_child_phone">Who does the phone belong to?</string>
     <string name="login_link">Already a member? Sign In</string>
     <string name="choose_child_text1">Please choose</string>
     <string name="choose_child_text2">who this device belongs to.</string>

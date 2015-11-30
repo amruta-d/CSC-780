@@ -113,6 +113,15 @@ public class UserLocalStore {
         double longitude = Double.longBitsToDouble(userLocalDatabase.getLong("longitude", Double.doubleToLongBits(-122.4782094)));
         return longitude;
     }
+    public void setChildForThisPhone(String childName){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("childForThisPhone", childName);
+        spEditor.commit();
+    }
+    public String getChildForThisPhone(){
+        String childName = userLocalDatabase.getString("childForThisPhone", "");
+        return childName;
+    }
 
 
     public void clearUserData(){

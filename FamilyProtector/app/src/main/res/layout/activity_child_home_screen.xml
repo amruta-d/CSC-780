@@ -37,7 +37,7 @@
     </LinearLayout>
 
     <view
-        android:id="@+id/recycler_view"
+        android:id="@+id/child_screen_recycler_view"
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

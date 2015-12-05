@@ -21,7 +21,7 @@ public class ChildHomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child_home_screen);
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView)findViewById(R.id.child_screen_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         getChildrenDetailsFromParse();
     }

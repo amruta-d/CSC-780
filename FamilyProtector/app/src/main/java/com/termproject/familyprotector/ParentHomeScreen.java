@@ -1,8 +1,6 @@
 package com.termproject.familyprotector;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -15,7 +13,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -25,7 +22,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class ParentHomeScreen extends AppCompatActivity implements View.OnClickListener {
+public class ParentHomeScreen extends AppCompatActivity {
 
     private Button buttonAddChild;
     int noOfChildren;
@@ -34,6 +31,7 @@ public class ParentHomeScreen extends AppCompatActivity implements View.OnClickL
     private ActionBarDrawerToggle mDrawerToggle;
     private RecyclerView mRecyclerView;
     private RecyclerAdapter mAdapter;
+    UserLocalStore userLocalStore;
 
 
     @Override
@@ -41,7 +39,8 @@ public class ParentHomeScreen extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent_home_screen);
         buttonAddChild = (Button) findViewById(R.id.AddChild);
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView)findViewById(R.id.parent_screen_recycler_view);
+        userLocalStore = new UserLocalStore(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         getChildrenDetailsFromParse();
 
@@ -71,6 +70,8 @@ public class ParentHomeScreen extends AppCompatActivity implements View.OnClickL
                 String txt;
                 switch (menuItem.getItemId()) {
                     case R.id.logout_drawer:
+                        userLocalStore.setUserLoggedIn(false);
+
                         startActivity(new Intent(ParentHomeScreen.this, Login.class));
                         break;
                     default:
@@ -131,29 +132,35 @@ public class ParentHomeScreen extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void showChildButton(ParseObject child, int buttonId) {
-        Drawable icon = getResources().getDrawable(R.drawable.child_boy_icon);
-        if (child.getString("gender").equals("Female")) {
-            icon = getResources().getDrawable(R.drawable.child_girl_icon);
-        }
-        icon.setBounds(0, 0, 100, 100);
-        Button childButton = new Button(this);
-        childButton.setId(buttonId);
-        childButton.setText(child.getString("name"));
-        childButton.setBackgroundColor(Color.parseColor("#F98F22"));
+//    private void showChildButton(ParseObject child, int buttonId) {
+//        Drawable icon = getResources().getDrawable(R.drawable.child_boy_icon);
+//        if (child.getString("gender").equals("Female")) {
+//            icon = getResources().getDrawable(R.drawable.child_girl_icon);
+//        }
+//        icon.setBounds(0, 0, 100, 100);
+//        Button childButton = new Button(this);
+//        childButton.setId(buttonId);
+//        childButton.setText(child.getString("name"));
+//        childButton.setBackgroundColor(Color.parseColor("#F98F22"));
+//
+//        childButton.setCompoundDrawables(icon, null, null, null);
+//        LinearLayout ll = (LinearLayout) findViewById(R.id.linear_layout);
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        lp.setMargins(0, 0, 0, 8);
+//        ll.addView(childButton, lp);
+//        childButton.setOnClickListener(this);
+//    }
+//
+//    public void onClick(View view) {
+//
+//
+//
+//    }
 
-        childButton.setCompoundDrawables(icon, null, null, null);
-        LinearLayout ll = (LinearLayout) findViewById(R.id.linear_layout);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, 0, 0, 8);
-        ll.addView(childButton, lp);
-        childButton.setOnClickListener(this);
-    }
-
-    public void onClick(View view) {
-
-
-
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
     }
 
 

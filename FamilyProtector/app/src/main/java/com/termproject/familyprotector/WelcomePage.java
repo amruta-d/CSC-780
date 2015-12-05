@@ -7,6 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.ParseQuery;
+
 public class WelcomePage extends AppCompatActivity implements View.OnClickListener{
 
     private Button Continue;
@@ -23,6 +27,18 @@ public class WelcomePage extends AppCompatActivity implements View.OnClickListen
         userLocalStore = new UserLocalStore(this);
 
         Continue.setOnClickListener(this);
+
+        // Find devices associated with these users
+        ParseQuery pushQuery = ParseInstallation.getQuery();
+        pushQuery.whereEqualTo("email","parent1");
+
+        // Send push notification to query
+        ParsePush push = new ParsePush();
+        push.setQuery(pushQuery); // Set our Installation query
+        push.setMessage("Free hotdogs at the Parse concession stand!");
+        push.sendInBackground();
+
+        System.out.println("Completed push!");
 
     }
 //    @Override

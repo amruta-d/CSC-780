@@ -22,13 +22,14 @@ public class UserLocalStore {
 
     }
 
-    public void storeUserData(){
-        Log.v("storeUserData",User.username+" "+User.password);
+    public void storeUserData(User user){
+//        Log.v("storeUserData",User.username+" "+User.password);
+
         try {
             SharedPreferences.Editor spEditor = userLocalDatabase.edit();
 
-            spEditor.putString("username", User.username);
-            spEditor.putString("password", User.password);
+            spEditor.putString("username", user.getUsername());
+            spEditor.putString("password", user.getPassword());
             spEditor.commit();
         }
         catch (Exception e){

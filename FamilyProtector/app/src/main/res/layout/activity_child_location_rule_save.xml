@@ -20,7 +20,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/dialog_child"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/dialog_address"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <TextView
@@ -62,7 +62,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/dialog_location_perimeter"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="meters"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <TextView
@@ -85,7 +85,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/dialog_location_type"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <EditText
@@ -105,7 +105,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="85dp"
         android:text="@string/dialog_location_time_from"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:layout_below="@id/edit_location_name"
         android:layout_alignEnd="@+id/location_perimeter_value" />
@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:text="@string/dialog_location_time_to"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:layout_alignBottom="@+id/location_timepicker_to"
         android:layout_alignEnd="@id/timepicker_from_text"

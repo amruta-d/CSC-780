@@ -14,7 +14,10 @@ import android.util.Log;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ import java.util.List;
 public class GeofenceTransitionsIntentService extends IntentService {
     protected static final String TAG = "GeofenceTransitionsIS";
     UserLocalStore userLocalStore;
+    User storedUser;
+    String userName;
 
 
     public GeofenceTransitionsIntentService() {
@@ -33,12 +38,16 @@ public class GeofenceTransitionsIntentService extends IntentService {
     public void onCreate() {
         Context context = getApplicationContext();
         userLocalStore = new UserLocalStore(context);
+        storedUser = userLocalStore.getLoggedInUser();
+        userName = storedUser.getUsername();
         super.onCreate();
     }
 
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
+        Log.v("Intent","inside intent");
 
 
                 GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
@@ -54,7 +63,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
         // Test that the reported transition was of interest.
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-
+            Log.v("Intent","GEOFENCE_TRANSITION_EXIT");
             List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
 
 
@@ -65,11 +74,15 @@ public class GeofenceTransitionsIntentService extends IntentService {
             );
 
             // Send notification and log the transition details.
+            Log.v("Intent", geofenceTransitionDetails);
             saveAlertToParse(geofenceTransitionDetails);
+
+            sendParsePush();
             sendNotification(geofenceTransitionDetails);
             Log.i(TAG, geofenceTransitionDetails);
         } else {
             // Log the error.
+            Log.v("Intent","OH HO");
             Log.e(TAG, getString(R.string.geofence_transition_invalid_type, geofenceTransition));
         }
     }
@@ -149,15 +162,31 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
     private void saveAlertToParse(String geofenceTransitionDetails){
 
-        User user = userLocalStore.getLoggedInUser();
+        storedUser = userLocalStore.getLoggedInUser();
 
         ParseObject childAlerts = new ParseObject("ChildAlerts");
-        childAlerts.put("userName",user.getUsername());
+        childAlerts.put("userName",userName);
         childAlerts.put("childName",userLocalStore.getChildForThisPhone());
         childAlerts.put("alert",geofenceTransitionDetails);
         childAlerts.saveInBackground();
+        Log.v("Intent", "saved to parse");
 
 
 
+    }
+
+    private void sendParsePush(){
+        // Find devices associated with these users
+        ParseQuery pushQuery = ParseInstallation.getQuery();
+        Log.v("Intent","parent:"+userName);
+        pushQuery.whereEqualTo("email","parent:"+userName);
+
+        // Send push notification to query
+        ParsePush push = new ParsePush();
+        push.setQuery(pushQuery); // Set our Installation query
+        push.setMessage("Free hotdogs at the Parse concession stand!");
+        push.sendInBackground();
+
+        Log.v("Intent","completed push");
     }
 }

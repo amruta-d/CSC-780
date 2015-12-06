@@ -46,28 +46,6 @@ public class Login extends Activity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.bLogin:
                 checkCredentials();
-           //     Log.d("Login", String.valueOf(validCredentials));
-//                try {
-//                    if (validCredentials) {
-//                        loggenInUser = new User(username,password);
-//                        userLocalStore.storeUserData(user);
-//                        userLocalStore.setUserLoggedIn(true);
-//                        startActivity(new Intent(this, ChooseMode.class));
-//                    }
-//                    else {
-//                        outputError();
-//                    }
-//
-//                }
-//                catch (Exception e){
-//                    Log.v("Login",e.toString());
-//                }
-//                if (validCredentials) {
-//                    startActivity(new Intent(Login.this, ChooseMode.class));
-//                }
-//                else {
-//                    outputError();
-//                }
                 break;
         }
     }
@@ -76,10 +54,6 @@ public class Login extends Activity implements View.OnClickListener{
 
         username = etUsername.getText().toString();
         password = etPassword.getText().toString();
-
-
-
-     //   user = new User(username,password);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("UserCredentials");
         query.whereEqualTo("username", username);
         query.whereEqualTo("password", password);
@@ -99,7 +73,7 @@ public class Login extends Activity implements View.OnClickListener{
                         loggenInUser = new User(username,password);
                      //   Log.v("Login",User.username+" "+User.password);
 
-                        userLocalStore.storeUserData();
+                        userLocalStore.storeUserData(loggenInUser);
                        userLocalStore.setUserLoggedIn(true);
                         startActivity(new Intent(Login.this, ChooseMode.class));
 

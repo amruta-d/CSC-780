@@ -62,7 +62,7 @@ public class ChildRecyclerAdapter extends RecyclerView.Adapter<ChildListRowHolde
                 userLocalStore.setChildForThisPhone(childName);
 
                 //    Toast.makeText(getActivity(),forecast,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context,RulesSetter.class);
+                Intent intent = new Intent(context,GeofencesActivity.class);
                 context.startActivity(intent);
             }
         };

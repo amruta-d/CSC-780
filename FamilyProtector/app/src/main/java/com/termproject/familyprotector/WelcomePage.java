@@ -72,8 +72,14 @@ public class WelcomePage extends AppCompatActivity implements View.OnClickListen
             }
             else if (appMode.equals("child")){
                 user = userLocalStore.getLoggedInUser();
-                Intent intent = new Intent(this, RulesSetter.class);
-                startActivity(intent);
+                if(!(userLocalStore.getChildForThisPhone().trim().equals(""))){
+                    Intent intent = new Intent(this, GeofencesActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(this, ChildHomeScreen.class);
+                    startActivity(intent);
+                }
             }
             else {
                 Intent intent = new Intent(this, ChooseMode.class);

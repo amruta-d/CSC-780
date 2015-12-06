@@ -3,8 +3,11 @@ package com.termproject.familyprotector;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.parse.ParseInstallation;
 
 public class ChooseMode extends Activity implements View.OnClickListener{
 
@@ -22,13 +25,6 @@ public class ChooseMode extends Activity implements View.OnClickListener{
         buttonParentMode.setOnClickListener(this);
         buttonChildMode.setOnClickListener(this);
 
-//        new OnClickListener() {
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(ChooseMode.this, ParentHomeScreen.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     private void init(){
@@ -37,13 +33,22 @@ public class ChooseMode extends Activity implements View.OnClickListener{
         buttonChildMode = (Button)findViewById(R.id.button_child_mode);
     }
     public void onClick(View view){
+        User storedUser = userLocalStore.getLoggedInUser();
+        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         switch(view.getId()){
             case R.id.button_parent_mode:
                 userLocalStore.setAppMode("parent");
+                Log.v("value","parent:"+storedUser.getUsername());
+
+                installation.put("email", "parent:"+storedUser.getUsername());
+                installation.saveInBackground();
                 startActivity(new Intent(this, ParentHomeScreen.class));
                 break;
             case R.id.button_child_mode:
                 userLocalStore.setAppMode("child");
+                installation.put("email", "child:" + storedUser.getUsername());
+                Log.v("value", "parent:" + storedUser.getUsername());
+                installation.saveInBackground();
                 startActivity(new Intent(this,ChildHomeScreen.class));
         }
 

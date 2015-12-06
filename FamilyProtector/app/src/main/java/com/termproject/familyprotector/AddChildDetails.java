@@ -20,6 +20,7 @@ public class AddChildDetails extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_child_details);
+        userLocalStore = new UserLocalStore(this);
         init();
 
         buttonSave.setOnClickListener(this);
@@ -50,8 +51,9 @@ public class AddChildDetails extends Activity implements View.OnClickListener{
     }
 
     private void storeToParse (){
+        User storedUser = userLocalStore.getLoggedInUser();
         ParseObject childDetails = new ParseObject("ChildDetails");
-        childDetails.put("username", User.username);
+        childDetails.put("username", storedUser.getUsername());
         childDetails.put("name",child.name);
         childDetails.put("gender", child.gender);
         childDetails.put("birthdate",child.birthdate);

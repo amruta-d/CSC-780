@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeofencesActivity extends AppCompatActivity implements
-        View.OnClickListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
 
     protected static final String TAG = "MainActivity";
 
@@ -57,13 +58,15 @@ public class GeofencesActivity extends AppCompatActivity implements
     private Button mAddGeofencesButton;
     private Button mRemoveGeofencesButton;
     UserLocalStore userLocalStore;
+    ProgressBar mProgressBar;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geofences);
-        mAddGeofencesButton = (Button)findViewById(R.id.add_geofences_button);
+//        mAddGeofencesButton = (Button)findViewById(R.id.add_geofences_button);
+        mProgressBar = (ProgressBar)findViewById(R.id.progress);
 
 
         // Get the UI widgets.
@@ -89,7 +92,8 @@ public class GeofencesActivity extends AppCompatActivity implements
 
         // Kick off the request to build GoogleApiClient.
         buildGoogleApiClient();
-        mAddGeofencesButton.setOnClickListener(this);
+        readGeoFenceDataFromParse();
+//        mAddGeofencesButton.setOnClickListener(this);
     }
 
     /**
@@ -131,6 +135,7 @@ public class GeofencesActivity extends AppCompatActivity implements
 
                         }
                         addGeofencesButtonHandler();
+                        mProgressBar.setVisibility(View.GONE);
                     }
                     else{
                         Log.v("geofence", "in else part");
@@ -295,17 +300,25 @@ public class GeofencesActivity extends AppCompatActivity implements
      */
     private PendingIntent getGeofencePendingIntent() {
         // Reuse the PendingIntent if we already have it.
+        Log.v("BLAH","getGeofencePendingIntent called");
         if (mGeofencePendingIntent != null) {
+            Log.v("BLAH","resuing pending intent");
             return mGeofencePendingIntent;
         }
+
+        Log.v("BLAH","have to create new one !!");
         Intent intent = new Intent(this, GeofenceTransitionsIntentService.class);
+//        Intent intent = new Intent(this, FibonacciService.class);
+//        intent.putExtra("n", n);
+//        startService(intent);
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when calling
         // addGeofences() and removeGeofences().
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     /**
-     * This sample hard codes geofence data. A real app might dynamically create geofences based on
+     * This sample hard codes geofence data
+     * . A real app might dynamically create geofences based on
      * the user's location.
      */
     public void populateGeofenceList(String locationID, double latitude, double longitude, float locationRadius) {
@@ -333,29 +346,14 @@ public class GeofencesActivity extends AppCompatActivity implements
                     .build());
         }
 
-    @Override
-    public void onClick(View v) {
-        if(v.getId()==R.id.add_geofences_button){
-
-            readGeoFenceDataFromParse();
-
-        }
-
-    }
-
-    /**
-     * Ensures that only one button is enabled at any time. The Add Geofences button is enabled
-     * if the user hasn't yet added geofences. The Remove Geofences button is enabled if the
-     * user has added geofences.
-     */
-//    private void setButtonsEnabledState() {
-//        if (mGeofencesAdded) {
-//            mAddGeofencesButton.setEnabled(false);
-//            mRemoveGeofencesButton.setEnabled(true);
-//        } else {
-//            mAddGeofencesButton.setEnabled(true);
-//            mRemoveGeofencesButton.setEnabled(false);
+//    @Override
+//    public void onClick(View v) {
+//        if(v.getId()==R.id.add_geofences_button){
+//
+//            readGeoFenceDataFromParse();
+//
 //        }
+//
 //    }
 
 }

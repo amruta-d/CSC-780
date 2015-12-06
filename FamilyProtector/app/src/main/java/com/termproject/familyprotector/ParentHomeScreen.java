@@ -22,11 +22,10 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class ParentHomeScreen extends AppCompatActivity {
+public class ParentHomeScreen extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonAddChild;
-    int noOfChildren;
-    private android.support.v7.widget.Toolbar mToolBar;
+    private Toolbar mToolBar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private RecyclerView mRecyclerView;
@@ -42,6 +41,8 @@ public class ParentHomeScreen extends AppCompatActivity {
         mRecyclerView = (RecyclerView)findViewById(R.id.parent_screen_recycler_view);
         userLocalStore = new UserLocalStore(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mToolBar =(Toolbar)findViewById(R.id.toolbar);
+//        setSupportActionBar(mToolBar);
         getChildrenDetailsFromParse();
 
 
@@ -86,22 +87,23 @@ public class ParentHomeScreen extends AppCompatActivity {
 
 
 
-        buttonAddChild.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        buttonAddChild.setOnClickListener(this);
 
-                Intent intent = new Intent(ParentHomeScreen.this, AddChildDetails.class);
-                startActivity(intent);
-            }
-        });
 
+    }
+
+    public void onClick(View view){
+        Intent intent = new Intent(ParentHomeScreen.this, AddChildDetails.class);
+        startActivity(intent);
 
     }
 
 
     private void getChildrenDetailsFromParse() {
+        User storedUser = userLocalStore.getLoggedInUser();
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChildDetails");
-        query.whereEqualTo("username", User.username);
+        query.whereEqualTo("username", storedUser.getUsername());
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> children, ParseException e) {
                 if (e == null) {
@@ -109,21 +111,7 @@ public class ParentHomeScreen extends AppCompatActivity {
 
                         mAdapter = new RecyclerAdapter (ParentHomeScreen.this, children);
                         mRecyclerView.setAdapter(mAdapter);
-
-
                     }
-
-
-//                        for (int i = 0; i < children.size(); i++) {
-//                            ParseObject child = children.get(i);
-////                            showChildButton(child, i + 1);
-//
-//                        }
-//
-//
-//                    } else {
-//
-//                    }
                 } else {
                     Log.d("Login", "Error: " + e.getMessage());
                 }
@@ -132,30 +120,7 @@ public class ParentHomeScreen extends AppCompatActivity {
         });
     }
 
-//    private void showChildButton(ParseObject child, int buttonId) {
-//        Drawable icon = getResources().getDrawable(R.drawable.child_boy_icon);
-//        if (child.getString("gender").equals("Female")) {
-//            icon = getResources().getDrawable(R.drawable.child_girl_icon);
-//        }
-//        icon.setBounds(0, 0, 100, 100);
-//        Button childButton = new Button(this);
-//        childButton.setId(buttonId);
-//        childButton.setText(child.getString("name"));
-//        childButton.setBackgroundColor(Color.parseColor("#F98F22"));
-//
-//        childButton.setCompoundDrawables(icon, null, null, null);
-//        LinearLayout ll = (LinearLayout) findViewById(R.id.linear_layout);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        lp.setMargins(0, 0, 0, 8);
-//        ll.addView(childButton, lp);
-//        childButton.setOnClickListener(this);
-//    }
-//
-//    public void onClick(View view) {
-//
-//
-//
-//    }
+
 
     @Override
     public void onPostCreate(Bundle savedInstanceState) {

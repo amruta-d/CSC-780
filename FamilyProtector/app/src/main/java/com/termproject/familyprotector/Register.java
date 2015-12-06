@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 
 public class Register extends Activity implements View.OnClickListener{
@@ -62,7 +61,7 @@ public class Register extends Activity implements View.OnClickListener{
         password = etPassword.getText().toString();
         storeToParse();
         registeredUser = new User(username,password);
-        userLocalStore.storeUserData();
+        userLocalStore.storeUserData(registeredUser);
         userLocalStore.setUserLoggedIn(true);
         startActivity(new Intent(this, ChooseMode.class));
 
@@ -74,11 +73,6 @@ public class Register extends Activity implements View.OnClickListener{
         userCredentials.put("username",username);
         userCredentials.put("password", password);
         userCredentials.saveInBackground();
-
-        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-
-        installation.put("email", username);
-        installation.saveInBackground();
 
     }
 

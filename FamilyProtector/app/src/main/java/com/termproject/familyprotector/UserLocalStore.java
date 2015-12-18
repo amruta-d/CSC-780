@@ -124,6 +124,16 @@ public class UserLocalStore {
         return childName;
     }
 
+    public void setRuleLocationId(int ruleLocationId){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putInt("latestLocationId", ruleLocationId);
+        spEditor.commit();
+    }
+    public int getRuleLocationId(){
+        int ruleLocationID = userLocalDatabase.getInt("latestLocationId", 0);
+        return ruleLocationID;
+    }
+
 
     public void clearUserData(){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();

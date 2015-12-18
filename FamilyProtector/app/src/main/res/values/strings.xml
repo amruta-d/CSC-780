@@ -1,42 +1,36 @@
 <resources>
+
+    <!--apps and activity titles-->
     <string name="app_name">Family Protector</string>
+    <string name="title_activity_choosingmode">choosingmode</string>
+    <string name="title_activity_choosemode">choosemode</string>
+    <string name="title_activity_parent_home_screen">Parent Home Screen</string>
+    <string name="title_activity_add_child_details">Add A Child</string>
+    <string name="title_activity_test">Test</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_register">Register</string>
+    <string name="title_activity_child_home_screen">Child Home Screen</string>
+    <string name="title_activity_main">Main Activity</string>
+    <string name="title_activity_rules_setter">Rules Setter</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_geofences">geofencesActivity</string>
+    <string name="title_activity_child_detail">ChildDetailActivity</string>
+    <string name="title_activity_save_rule_location">SaveRuleLocationActivity</string>
+    <string name="title_activity_child_location_rule_save">ChildLocationRuleSaveActivity</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="register">Register</string>
-    <string name="login">Login</string>
-    <string name="logout">Logout</string>
-    <string name="my_family">My Family</string>
-    <string name="choose_child_phone">Who does the phone belong to?</string>
-    <string name="login_link">Already a member? Sign In</string>
-    <string name="choose_child_text1">Please choose</string>
-    <string name="choose_child_text2">who this device belongs to.</string>
-    <string name="settings">Settings</string>
-    <string name="help">Help</string>
-    <string name="about">About</string>
-    <string name="drawer_open">Drawer opened</string>
-    <string name="drawer_close">Drawer closed</string>
-    <string name="rules">Rules</string>
-    <string name="continue_button">Continue</string>
-    <string name="not_connected">GoogleApiClient no yet connected. Try again.</string>
-    <string name="button_location_perimeter">Location Perimeter</string>
-    <string name="button_save_text">Save</string>
 
+    <!-- Action Strings -->
     <string name="action_search">Search</string>
-    <string name="search_hint">Search Places</string>
-    <string name="search_settings">Search Places</string>
-    <string name="dialog_title">Save the location</string>
-    <string name="dialog_child">Rule For :</string>
-    <string name="dialog_address">Address :</string>
-    <string name="dialog_location_type">Location type :</string>
-    <string name="dialog_location_perimeter">Location perimeter:</string>
-    <string name="dialog_location_time_from">From :</string>
-    <string name="dialog_location_time_to">To :</string>
-    <string name="dialog_location_hint">E.g. school, home</string>
-    <string name="dialog_perimeter_hint">Enter a radius for location</string>
-    <string name="dialog_distance_units">meters</string>
+
+
+    <!-- Various widget strings-->
+    <string name="child_details">Child Details</string>
+    <string name="child_name">Child Name</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="birth_date">Birth Day</string>
+
 
 
 
@@ -61,21 +55,7 @@
 
 
 
-    <string name="title_activity_choosingmode">choosingmode</string>
-    <string name="title_activity_choosemode">choosemode</string>
-    <string name="title_activity_parent_home_screen">Parent Home Screen</string>
-    <string name="title_activity_add_child_details">Add Child Details</string>
-    <string name="title_activity_test">Test</string>
-    <string name="title_activity_login">Login</string>
-    <string name="title_activity_register">Register</string>
-    <string name="title_activity_child_home_screen">Child Home Screen</string>
-    <string name="title_activity_main">Main Activity</string>
-    <string name="title_activity_rules_setter">Rules Setter</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="title_activity_geofences">geofencesActivity</string>
-    <string name="title_activity_child_detail">ChildDetailActivity</string>
-    <string name="title_activity_save_rule_location">SaveRuleLocationActivity</string>
-    <string name="title_activity_child_location_rule_save">ChildLocationRuleSaveActivity</string>
+
     <string name="add_geofences">Add geofences</string>
     <string name="remove_geofences">Remove geofences</string>
     <string name="geofences_added">Geofences added</string>
@@ -83,4 +63,44 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="my_family">My Family</string>
+    <string name="choose_child_phone">Who does the phone belong to?</string>
+    <string name="login_link">Already a member? Sign In</string>
+    <string name="choose_child_text1">Please choose</string>
+    <string name="choose_child_text2">who this device belongs to.</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
+    <string name="drawer_open">Drawer opened</string>
+    <string name="drawer_close">Drawer closed</string>
+    <string name="rules">Rules</string>
+    <string name="continue_button">Continue</string>
+    <string name="not_connected">GoogleApiClient no yet connected. Try again.</string>
+    <string name="button_location_perimeter">Location Perimeter</string>
+    <string name="button_save_text">Save</string>
+
+
+    <string name="search_hint">Search Places</string>
+    <string name="search_settings">Search Places</string>
+    <string name="dialog_title">Save the location</string>
+    <string name="dialog_child">Rule For :</string>
+    <string name="dialog_address">Address :</string>
+    <string name="dialog_location_type">Location type :</string>
+    <string name="dialog_select_days">Select Days :</string>
+    <string name="dialog_location_perimeter">Location perimeter:</string>
+    <string name="dialog_location_time_from">From :</string>
+    <string name="dialog_location_time_to">To :</string>
+    <string name="dialog_location_hint">E.g. school, home</string>
+    <string name="dialog_perimeter_hint">Enter a radius for location</string>
+    <string name="dialog_distance_units">meters</string>
 </resources>

@@ -2,6 +2,7 @@ package com.termproject.familyprotector;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -24,7 +24,8 @@ import java.util.List;
 
 public class ParentHomeScreen extends AppCompatActivity implements View.OnClickListener{
 
-    private Button buttonAddChild;
+//    private Button buttonAddChild;
+    private FloatingActionButton addChildFab;
     private Toolbar mToolBar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -37,7 +38,8 @@ public class ParentHomeScreen extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent_home_screen);
-        buttonAddChild = (Button) findViewById(R.id.AddChild);
+//        buttonAddChild = (Button) findViewById(R.id.AddChild);
+        addChildFab = (FloatingActionButton)findViewById(R.id.add_child_fab);
         mRecyclerView = (RecyclerView)findViewById(R.id.parent_screen_recycler_view);
         userLocalStore = new UserLocalStore(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -87,7 +89,7 @@ public class ParentHomeScreen extends AppCompatActivity implements View.OnClickL
 
 
 
-        buttonAddChild.setOnClickListener(this);
+        addChildFab.setOnClickListener(this);
 
 
     }

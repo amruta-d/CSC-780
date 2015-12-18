@@ -5,102 +5,106 @@
     tools:context="com.termproject.familyprotector.AddChildDetails">
 
     <LinearLayout
-        android:id="@+id/Month"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        >
+        android:orientation="vertical">
+
 
         <TextView
-            android:id="@+id/Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="38dp"
-            android:text="Child Details" />
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/child_details"
+            android:textColor="@android:color/black"
+            android:textSize="26sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/primaryColor"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin" />
 
         <TextView
-            android:id="@+id/ChildName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/Header"
-            android:layout_alignStart="@+id/Header"
-            android:layout_below="@+id/Header"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginTop="31dp"
-            android:text="Child Name" />
+            android:text="@string/child_name"
+            android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/NameOfChild"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ChildName"
-            android:layout_alignStart="@+id/ChildName"
-            android:layout_below="@+id/ChildName"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/Gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/NameOfChild"
-            android:layout_alignStart="@+id/NameOfChild"
-            android:layout_below="@+id/NameOfChild"
-            android:text="Gender" />
-
-        <RadioGroup
+            android:id="@+id/child_name_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="text" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="31dp"
+            android:text="@string/gender"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:id="@+id/child_gender_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/radio_button_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/Gender"
-                android:layout_alignStart="@+id/Gender"
-
-                android:layout_below="@+id/Gender"
-                android:layout_marginRight="24dp"
-                android:text="Male" />
+                android:layout_marginRight="80dp"
+                android:text="@string/male"
+                android:textSize="20sp" />
 
             <RadioButton
                 android:id="@+id/radio_button_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/NameOfChild"
-                android:layout_alignRight="@+id/NameOfChild"
-                android:layout_alignTop="@+id/radio_button_male"
-                android:text="Female" />
+                android:text="@string/female"
+                android:textSize="20sp" />
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/Birthday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/radio_button_male"
-            android:layout_alignStart="@+id/radio_button_male"
-            android:layout_below="@+id/radio_button_male"
-            android:text=" Birth Date" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="24dp"/>
 
-        <EditText
-            android:id="@+id/BirthDateText"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/Birthday"
-            android:layout_alignStart="@+id/Birthday"
-            android:layout_below="@+id/Birthday"
-            android:ems="10"
-            android:hint="mm/dd/yyyy"
-            android:inputType="date" />
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="31dp"
+            android:text="@string/birth_date"
+            android:textSize="16sp" />
+
+        <DatePicker
+            android:id="@+id/datepicker_childbirthdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"/>
 
         <Button
             android:id="@+id/button_save"

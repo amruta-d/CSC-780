@@ -1,20 +1,25 @@
 package com.termproject.familyprotector;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.parse.ParseObject;
 
-public class AddChildDetails extends Activity implements View.OnClickListener{
+public class AddChildDetails extends AppCompatActivity implements View.OnClickListener{
     EditText editTextChildName, editTextBirthDate;
-    RadioButton radioButtonMale, radioButtonFemale;
+    RadioButton radioButtonGender;
     Button buttonSave;
-    public static Child child;
+    DatePicker childBirthDay;
+    RadioGroup childGenderRadioGroup;
+    String childNameStr, childBirthDateStr, childGenderStr;
     UserLocalStore userLocalStore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,39 +29,47 @@ public class AddChildDetails extends Activity implements View.OnClickListener{
         init();
 
         buttonSave.setOnClickListener(this);
-
-
-//        buttonSave.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//
-//            }
-//        });
     }
 
     private void init(){
 
-        editTextChildName = (EditText)findViewById(R.id.NameOfChild);
-        editTextBirthDate = (EditText)findViewById(R.id.BirthDateText);
-        radioButtonMale = (RadioButton)findViewById(R.id.radio_button_male);
-        radioButtonFemale = (RadioButton)findViewById(R.id.radio_button_female);
+        editTextChildName = (EditText)findViewById(R.id.child_name_edit_text);
+        childBirthDay = (DatePicker)findViewById(R.id.datepicker_childbirthdate);
+        childGenderRadioGroup = (RadioGroup)findViewById(R.id.child_gender_radio_group);
         buttonSave = (Button)findViewById(R.id.button_save);
     }
 
     @Override
     public void onClick(View view){
-        child = new Child(this);
-        storeToParse();
-        startActivity(new Intent(this,ParentHomeScreen.class));
 
+        childNameStr = editTextChildName.getText().toString();
+        if(!(childNameStr.matches("")) && childGenderRadioGroup.getCheckedRadioButtonId()!=-1){
+            int genderId= childGenderRadioGroup.getCheckedRadioButtonId();
+//            radioButtonGender = (RadioButton)childGenderRadioGroup.indexOfChild(genderId);
+            if (genderId == R.id.radio_button_male){
+                childGenderStr = "Male";
+            }
+            else{
+                childGenderStr = "Female";
+            }
+
+            childBirthDateStr = childBirthDay.getMonth()+"-"+childBirthDay.getDayOfMonth()+"-"+childBirthDay.getYear();
+            storeToParse();
+            startActivity(new Intent(this,ParentHomeScreen.class));
+
+        }
+        else {
+            Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void storeToParse (){
         User storedUser = userLocalStore.getLoggedInUser();
         ParseObject childDetails = new ParseObject("ChildDetails");
         childDetails.put("username", storedUser.getUsername());
-        childDetails.put("name",child.name);
-        childDetails.put("gender", child.gender);
-        childDetails.put("birthdate",child.birthdate);
+        childDetails.put("name",childNameStr);
+        childDetails.put("gender", childGenderStr);
+        childDetails.put("birthdate", childBirthDateStr);
         childDetails.saveInBackground();
 
     }

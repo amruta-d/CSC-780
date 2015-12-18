@@ -146,6 +146,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
 
         mNotificationManager.notify(0, builder.build());
+
     }
 
     private String getTransitionString(int transitionType) {
@@ -170,9 +171,6 @@ public class GeofenceTransitionsIntentService extends IntentService {
         childAlerts.put("alert",geofenceTransitionDetails);
         childAlerts.saveInBackground();
         Log.v("Intent", "saved to parse");
-
-
-
     }
 
     private void sendParsePush(){

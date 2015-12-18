@@ -31,8 +31,6 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -178,15 +176,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
         getMenuInflater().inflate(R.menu.menu_maps_activity, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-
-
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//        MenuItem searchItem = menu.findItem(R.id.action_search);
-        //      SearchView searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
-        //   MenuItem searchItem = menu.findItem(R.id.action_search);
-        //     SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-
-
         if (null != searchView) {
             searchView.setSearchableInfo(searchManager
                     .getSearchableInfo(getComponentName()));
@@ -221,17 +210,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 
-    private void saveRuleLocation (){
-
-        ParseObject ruleLocation = new ParseObject("ChildRuleLocation");
-        ParseGeoPoint ruleLatLng = new ParseGeoPoint(latitude,longitude);
-        ruleLocation.put("locationName",locationNameStr);
-        ruleLocation.put("locationAddress", addressString);
-        ruleLocation.put("geopoint", ruleLatLng);
-        ruleLocation.put("locationRadius", locationPerimeterValue);
-        ruleLocation.saveInBackground();
-
-    }
 
     public void createGeofenceCircle(){
         Log.v("1.latitude and lon","Latitude: "+Double.toString(latitude)+"Long: "+ Double.toString(longitude));
@@ -254,6 +232,11 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+    /* Async Task to search for places in google maps
+    *
+    *
+     */
 
     public class MapSearchTask extends AsyncTask<String, Void, HashMap<String, String>> {
 
@@ -311,9 +294,9 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 //                location.put("addressStr", "hello");
 //                location.put("lat", "37.69743690000001");
 //                location.put("lng", "122.4802931");
-                Log.v("MAPS - LNG", locationObject.getString("lat"));
-                Log.v("MAPS - LNG", locationObject.getString("lng"));
-                Log.v("MAPS - LNG", resultsArr.getJSONObject(0).getString("formatted_address"));
+//                Log.v("MAPS - LNG", locationObject.getString("lat"));
+//                Log.v("MAPS - LNG", locationObject.getString("lng"));
+//                Log.v("MAPS - LNG", resultsArr.getJSONObject(0).getString("formatted_address"));
 
 
 //                Log.v("MAPS", buffer.toString());
@@ -348,18 +331,8 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap(double latudude, double longitude, String titleStr)} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
+     * installed) and the map has not already been instantiated.. This will ensure that we only call setUpmap
+     * if it is not null.
      */
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -376,16 +349,14 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
+     * This is where we can add markers or lines, add listeners or move the camera.
+     * This should only be called when we are sure that map is not null.
      */
     private void setUpMap(double latitude, double longitude, String titleStr) {
 
         marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title(titleStr));
         marker.showInfoWindow();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16.9f));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16.9f));
 
         if(circle!=null){
             createGeofenceCircle();

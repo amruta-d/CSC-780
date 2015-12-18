@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">#319fc4</item>
         <item name="colorAccent">#3EC7F5</item>
         <item name="colorButtonNormal">#3EC7F5</item>
+
     </style>
 <!--
     <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
@@ -33,7 +34,7 @@
 
     </style>
 
-    <style name="AppTheme.Button" parent="Base.Widget.AppCompat.Button">
+    <style name="AppTheme.Fab" parent="Widget.Design.FloatingActionButton">
         <item name="colorButtonNormal">@color/primaryColor  </item>
     </style>
 

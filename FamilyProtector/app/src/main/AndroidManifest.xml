@@ -54,7 +54,8 @@
         </activity>
         <activity
             android:name=".AddChildDetails"
-            android:label="@string/title_activity_add_child_details" >
+            android:label="@string/title_activity_add_child_details"
+            android:noHistory="true">
         </activity>
         <activity
             android:name=".Register"

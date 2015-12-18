@@ -94,6 +94,8 @@ public class GeofencesActivity extends AppCompatActivity implements
         buildGoogleApiClient();
         readGeoFenceDataFromParse();
 //        mAddGeofencesButton.setOnClickListener(this);
+
+        mGoogleApiClient.connect();
     }
 
     /**
@@ -341,6 +343,7 @@ public class GeofencesActivity extends AppCompatActivity implements
                             // transition. We track entry and exit transitions in this sample.
                     .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
                             Geofence.GEOFENCE_TRANSITION_EXIT)
+
 
                             // Create the geofence.
                     .build());

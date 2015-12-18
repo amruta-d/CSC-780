@@ -40,6 +40,7 @@ public class GeofenceCreationService extends IntentService implements
 
     public static final String SHARED_PREFERENCES_NAME = PACKAGE_NAME + ".SHARED_PREFERENCES_NAME";
     public static final String GEOFENCES_ADDED_KEY = PACKAGE_NAME + ".GEOFENCES_ADDED_KEY";
+
 //    public static final long GEOFENCE_EXPIRATION_IN_HOURS = 24;
 
     //setting the geofence for one hour
@@ -68,21 +69,16 @@ public class GeofenceCreationService extends IntentService implements
     }
 
     protected synchronized void buildGoogleApiClient() {
-        Log.v("geofencecreateservice", "in build API client");
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
-        Log.v("geofencecreateservice","finished with build");
-        Log.v("geofencecreateservice", "started to connect");
         mGoogleApiClient.connect();
     }
 
 
     private void readGeoFenceDataFromParse() {
-        Log.v("parse","inside geofence data");
         User user = userLocalStore.getLoggedInUser();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChildRuleLocation");
         query.whereEqualTo("userName", user.getUsername());
@@ -104,10 +100,9 @@ public class GeofenceCreationService extends IntentService implements
                         }
                         createGeofencesFromList();
                     } else {
-                        Log.v("geofence", "in else part");
                     }
                 } else {
-                    Log.d("Login", "Error: " + e.getMessage());
+                    Log.d("Geofence Service", "Error in reading rule date from parse" + e.getMessage());
                 }
             }
         });
@@ -183,8 +178,7 @@ public class GeofenceCreationService extends IntentService implements
                     this,
                     getString(mGeofencesAdded ? R.string.geofences_added :
                             R.string.geofences_removed),
-                    Toast.LENGTH_SHORT
-            ).show();
+                    Toast.LENGTH_SHORT).show();
         } else {
             // Get the status code for the error and log it using a user-friendly message.
             String errorMessage = GeofenceErrorMessages.getErrorString(this,
@@ -195,19 +189,14 @@ public class GeofenceCreationService extends IntentService implements
 
     private PendingIntent getGeofencePendingIntent() {
         // Reuse the PendingIntent if we already have it.
-        Log.v("BLAH","getGeofencePendingIntent called");
         if (mGeofencePendingIntent != null) {
-            Log.v("BLAH","resuing pending intent");
+
             return mGeofencePendingIntent;
         }
 
-        Log.v("BLAH","have to create new one !!");
+
         Intent intent = new Intent(this, GeofenceTransitionsIntentService.class);
-//        Intent intent = new Intent(this, FibonacciService.class);
-//        intent.putExtra("n", n);
-//        startService(intent);
-        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when calling
-        // addGeofences() and removeGeofences().
+
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 

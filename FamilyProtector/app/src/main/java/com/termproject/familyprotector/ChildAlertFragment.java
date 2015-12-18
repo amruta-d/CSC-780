@@ -36,7 +36,6 @@ public class ChildAlertFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
-        Log.v("check activity", "context"+context);
         userLocalStore = new UserLocalStore(getActivity());
         user = userLocalStore.getLoggedInUser();
         childName = userLocalStore.getChildDetails();
@@ -49,15 +48,7 @@ public class ChildAlertFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_child_alert, container, false);
         mRecyclerView = (RecyclerView)view.findViewById(R.id.child_alert_recycler_view);
-//        mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        Log.v("size", "the size is:"+ childAlerts.size());
-
-//        mAdapter = new ChildAlertRecylerAdapter(mDataset);
-//        // Set CustomAdapter as the adapter for RecyclerView.
-//        mRecyclerView.setAdapter(mAdapter);
-
-
         return view;
     }
 
@@ -71,17 +62,16 @@ public class ChildAlertFragment extends Fragment {
     private void getChildAlertFromParse() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChildAlerts");
         query.whereEqualTo("userName", user.getUsername());
-        Log.v("userName", "name" + user.getUsername());
         query.whereEqualTo("childName", childName);
         query.orderByDescending("createdAt");
-        Log.v("childName", "name" + childName);
+
 
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> childAlertsFromParse, ParseException e) {
-                Log.v("inside", "in done");
+
                 if (e == null) {
-                    Log.v("inside", "in if");
-                    Log.v("size of array", "size:"+childAlertsFromParse.size());
+
+
                     if (childAlertsFromParse.size() > 0) {
                         mAdapter = new ChildAlertRecylerAdapter(childAlertsFromParse, childName);
                         // Set CustomAdapter as the adapter for RecyclerView.
@@ -93,8 +83,7 @@ public class ChildAlertFragment extends Fragment {
                     }
                 }
                 else {
-                    Log.v("inside", "in else");
-                    Log.d("Login", "I am here");
+                    Log.d("childAlertfragment", "Error in fetching data from parse"+ e.toString());
                 }
 
             }

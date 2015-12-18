@@ -7,17 +7,17 @@ public class GeofenceAlertObj {
 
     String triggeringGeofenceName, triggeringGeofenceId, geofenceTransitionString;
 
-    public GeofenceAlertObj(String triggeringGeofenceName, String triggeringGeofenceId, String geofenceTransitionString){
+    public GeofenceAlertObj(String triggeringGeofenceName, String triggeringGeofenceId, String geofenceTransitionString) {
         this.triggeringGeofenceName = triggeringGeofenceName;
         this.triggeringGeofenceId = triggeringGeofenceId;
         this.geofenceTransitionString = geofenceTransitionString;
     }
 
-    public String alertString (){
-        return geofenceTransitionString+ " " + triggeringGeofenceName;
+    public String alertString() {
+        return geofenceTransitionString + " " + triggeringGeofenceName;
     }
 
-    public String alertIdString (){
+    public String alertIdString() {
         return triggeringGeofenceId;
     }
 }

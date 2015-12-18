@@ -57,7 +57,6 @@ public class ChildRecyclerAdapter extends RecyclerView.Adapter<ChildListRowHolde
                 int position = holder.getPosition();
 
                 ParseObject child = children.get(position);
-//                Toast.makeText(context, child.getString("name"), Toast.LENGTH_SHORT).show();
                 String childName = child.getString("name");
                 String gender = child.getString("gender");
                 userLocalStore.setChildForThisPhone(childName);

@@ -36,7 +36,7 @@ public class ChildLocationRuleSaveActivity extends AppCompatActivity implements 
         childName = userLocalStore.getChildDetails();
         addressString = userLocalStore.getLocationAddress();
         locationPerimeterValue = userLocalStore.getLocationPerimeter();
-        setTitle("  " + childName + "'s Rule");
+        setTitle("Rule for " + childName);
         setContentView(R.layout.activity_child_location_rule_save);
         locationNameEditText = (EditText)findViewById(R.id.edit_location_name);
         ruleLocationFromTime = (TimePicker)findViewById(R.id.location_timepicker_from);
@@ -70,11 +70,6 @@ public class ChildLocationRuleSaveActivity extends AppCompatActivity implements 
         }
         selectedDays =  multiSelectionSpinner.getSelectedItemsAsString();
         days = selectedDays.split(",");
-
-//        Calendar c = Calendar.getInstance();
-//        int hours = c.get(Calendar.HOUR);
-//        int minutes = c.get(Calendar.MINUTE);
-//        Log.v("time", "hours:"+hours+"---min:"+minutes);
         latitude =userLocalStore.getLocationLatitude();
         longitude = userLocalStore.getLocationLongitude();
         locationNameStr = locationNameEditText.getText().toString();

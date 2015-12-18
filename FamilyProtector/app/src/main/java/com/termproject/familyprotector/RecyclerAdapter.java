@@ -18,7 +18,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ChildListRowHolder>{
     private List<ParseObject> children;
     private Context context;
 
-    public RecyclerAdapter(Context context, List<ParseObject> children) {
+    public  RecyclerAdapter(Context context, List<ParseObject> children) {
         this.children = children;
         this.context = context;
     }
@@ -55,9 +55,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ChildListRowHolder>{
                 int position = holder.getPosition();
 
                 ParseObject child = children.get(position);
-//                Toast.makeText(context, child.getString("name"), Toast.LENGTH_SHORT).show();
                 String childName = child.getString("name");
-                //    Toast.makeText(getActivity(),forecast,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context,ChildDetailActivity.class).putExtra(Intent.EXTRA_TEXT, childName);
                 context.startActivity(intent);
             }

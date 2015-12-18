@@ -24,7 +24,6 @@ import java.util.List;
 
 public class ParentHomeScreen extends AppCompatActivity implements View.OnClickListener{
 
-//    private Button buttonAddChild;
     private FloatingActionButton addChildFab;
     private Toolbar mToolBar;
     private DrawerLayout mDrawerLayout;
@@ -38,13 +37,10 @@ public class ParentHomeScreen extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent_home_screen);
-//        buttonAddChild = (Button) findViewById(R.id.AddChild);
         addChildFab = (FloatingActionButton)findViewById(R.id.add_child_fab);
         mRecyclerView = (RecyclerView)findViewById(R.id.parent_screen_recycler_view);
         userLocalStore = new UserLocalStore(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        mToolBar =(Toolbar)findViewById(R.id.toolbar);
-//        setSupportActionBar(mToolBar);
         getChildrenDetailsFromParse();
 
 

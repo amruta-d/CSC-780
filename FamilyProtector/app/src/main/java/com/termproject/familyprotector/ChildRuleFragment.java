@@ -39,7 +39,6 @@ public class ChildRuleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
-        Log.v("check activity", "context" + context);
         userLocalStore = new UserLocalStore(getActivity());
         user = userLocalStore.getLoggedInUser();
         childName = userLocalStore.getChildDetails();
@@ -76,17 +75,12 @@ public class ChildRuleFragment extends Fragment {
     private void getChildRulesFromParse() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChildRuleLocation");
         query.whereEqualTo("userName", user.getUsername());
-        Log.v("userName", "name" + user.getUsername());
         query.whereEqualTo("childName", childName);
         query.orderByDescending("createdAt");
-        Log.v("childName", "name" + childName);
 
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> childRulesFromParse, ParseException e) {
-                Log.v("inside", "in done");
                 if (e == null) {
-                    Log.v("inside", "in if");
-                    Log.v("size of array", "size:" + childRulesFromParse.size());
                     if (childRulesFromParse.size() > 0) {
                         mAdapter = new ChildRuleRecyclerAdapter(childRulesFromParse, childName);
                         // Set CustomAdapter as the adapter for RecyclerView.
@@ -98,8 +92,7 @@ public class ChildRuleFragment extends Fragment {
                     }
                 }
                 else {
-                    Log.v("inside", "in else");
-                    Log.d("Login", "I am here");
+                    Log.e("Child Rule Fragment", "error in fetching"+e.toString());
                 }
 
             }

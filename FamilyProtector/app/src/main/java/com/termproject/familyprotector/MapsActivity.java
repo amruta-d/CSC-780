@@ -76,8 +76,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 
             queryParam = Double.toString(latitude) + "," + Double.toString(longitude);
 
-            Log.v("maps", "Lat: " + latitude + "\n" + longitude);
-
 
         } else {
             queryParam = "Thornton+Hall,+San+Francisco+State+University,+1600+Holloway+Ave,+San+Francisco,+CA+94132";
@@ -122,10 +120,8 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
                                 locationPerimeterValue = Float.valueOf(locationPerimeterStr);
                             }
 
-//                            saveRuleLocation();
                             createGeofenceCircle();
                             String toastStr = "Location with perimeter";
-//                            continueButton.setVisibility(View.VISIBLE);
                             Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
                             showSnackbar(v);
 
@@ -201,8 +197,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             public boolean onQueryTextChange(String newText) {
-                // this is your adapter that will be filtered
-                Log.v("LISTENER", "onQueryTextChange called - " + newText);
                 return true;
             }
 
@@ -226,7 +220,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void createGeofenceCircle(){
-        Log.v("1.latitude and lon","Latitude: "+Double.toString(latitude)+"Long: "+ Double.toString(longitude));
         if(circle!=null){
             circle.remove();
         }
@@ -258,7 +251,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected HashMap<String, String> doInBackground(String... params) {
             HashMap<String, String> location = new HashMap<String, String>();
-            Log.v("LISTENER", "doInBackground called - " + "");
             String apiKey = "AIzaSyAUSETHO5_4d_lGrGfjX4vAowf6DrqaNmk";
             try {
                 final String GOOGLE_BASE_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
@@ -272,8 +264,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 
                 URL url = new URL(builtUri.toString());
 
-                // Create the request to Google Palces, and open the connection
-
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
@@ -283,7 +273,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
                 InputStream inputStream = urlConnection.getInputStream();
                 StringBuffer buffer = new StringBuffer();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                Log.v("maps", "i am here!!");
 
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -297,19 +286,8 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
                 JSONArray resultsArr = jsonObject.getJSONArray("results");
                 location.put("addressStr", resultsArr.getJSONObject(0).getString("formatted_address"));
                 JSONObject locationObject = resultsArr.getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
-//                location.put("lat", Double.parseDouble(locationObject.getString("lat")));
-//                location.put("lng",Double.parseDouble(locationObject.getString("lng")));
                 location.put("lat", locationObject.getString("lat"));
                 location.put("lng", locationObject.getString("lng"));
-//                location.put("addressStr", "hello");
-//                location.put("lat", "37.69743690000001");
-//                location.put("lng", "122.4802931");
-//                Log.v("MAPS - LNG", locationObject.getString("lat"));
-//                Log.v("MAPS - LNG", locationObject.getString("lng"));
-//                Log.v("MAPS - LNG", resultsArr.getJSONObject(0).getString("formatted_address"));
-
-
-//                Log.v("MAPS", buffer.toString());
 
             } catch (Exception e) {
                 Log.v("ERROR", e.toString());
@@ -351,7 +329,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            //  handleIntent(getIntent());
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap(latitude, longitude, "Current Location");
@@ -375,7 +352,5 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
             createGeofenceCircle();
         }
 
-
-        //   handleIntent(getIntent());
     }
 }

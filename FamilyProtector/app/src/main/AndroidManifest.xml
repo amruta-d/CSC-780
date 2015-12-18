@@ -77,10 +77,6 @@
             android:name=".ChildHomeScreen"
             android:label="@string/title_activity_child_home_screen" >
         </activity>
-        <activity
-            android:name=".RulesSetter"
-            android:label="@string/title_activity_rules_setter" >
-        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -105,10 +101,6 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-        </activity>
-        <activity
-            android:name=".GeofencesActivity"
-            android:label="@string/title_activity_geofences" >
         </activity>
 
         <service

@@ -17,7 +17,6 @@ import java.util.List;
  */
 public class ChildAlertRecylerAdapter extends RecyclerView.Adapter<ChildAlertRecylerAdapter.ChildAlertViewHolder> {
 
-//    private String[] mDataSet;
     private List<ParseObject> mChildAlerts;
     private String mChildName;
 
@@ -42,8 +41,7 @@ public class ChildAlertRecylerAdapter extends RecyclerView.Adapter<ChildAlertRec
     }
 
     public ChildAlertRecylerAdapter(List<ParseObject> childAlerts, String childName) {
-//        mDataSet = dataSet;
-        Log.v("size", "the size is:"+ childAlerts.size());
+
         mChildAlerts = childAlerts;
         mChildName = childName;
     }
@@ -60,12 +58,10 @@ public class ChildAlertRecylerAdapter extends RecyclerView.Adapter<ChildAlertRec
     @Override
     public void onBindViewHolder(ChildAlertViewHolder holder, int position) {
 
-        Log.d("child alert adapter", "Element " + position + " set.");
         if(mChildAlerts.size()>0) {
 
             ParseObject alert = mChildAlerts.get(position);
             Date date = alert.getCreatedAt();
-            Log.v("time", "t:" + date.getTime());
 
 
             // Get element from your dataset at this position and replace the contents of the view

@@ -1,8 +1,8 @@
 package com.termproject.familyprotector;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +16,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class Login extends Activity implements View.OnClickListener{
+public class Login extends AppCompatActivity implements View.OnClickListener{
     Button bLogin;
     EditText etUsername, etPassword;
     TextView invalidLogin;
@@ -61,17 +61,11 @@ public class Login extends Activity implements View.OnClickListener{
             public void done(List<ParseObject> users, ParseException e) {
                 if (e == null) {
                     if (users.size() > 0) {
-                        Log.v("abc",String.valueOf(users.size()));
-//                        Log.v("login method",String.valueOf(users.size()));
                         for(int i= 0;i<users.size();i++){
                             ParseObject user = users.get(i);
-                            Log.v("Login",user.getString("username")+" "+user.getString("password"));
-
                         }
-                        //validCredentials = true;
 
                         loggenInUser = new User(username,password);
-                     //   Log.v("Login",User.username+" "+User.password);
 
                         userLocalStore.storeUserData(loggenInUser);
                        userLocalStore.setUserLoggedIn(true);
@@ -79,6 +73,7 @@ public class Login extends Activity implements View.OnClickListener{
 
                     } else {
                         validCredentials = false;
+                        invalidLogin.setText("Invalid credentials. Please enter correct credentials to login");
                     }
                 } else {
                     Log.d("Login", "Error: " + e.getMessage());

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
-import android.util.Log;
 
 import java.util.Calendar;
 
@@ -26,7 +25,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver{
     }
 
     public void setAlarm (Context context){
-        Log.v("alam","alarm set up");
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(context,0,intent,0);

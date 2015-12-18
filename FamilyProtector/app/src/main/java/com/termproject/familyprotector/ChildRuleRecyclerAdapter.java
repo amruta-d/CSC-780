@@ -38,8 +38,6 @@ public class ChildRuleRecyclerAdapter extends RecyclerView.Adapter<ChildRuleRecy
         }
     }
     public ChildRuleRecyclerAdapter(List<ParseObject> childAlerts, String childName) {
-//        mDataSet = dataSet;
-//        Log.v("size", "the size is:"+ mChildRules.size());
         mChildRules = childAlerts;
         mChildName = childName;
     }
@@ -55,16 +53,9 @@ public class ChildRuleRecyclerAdapter extends RecyclerView.Adapter<ChildRuleRecy
     @Override
     public void onBindViewHolder(ChildRuleViewHolder holder, int position) {
 
-        Log.d("child rule adapter", "Element " + position + " set.");
         if(mChildRules.size()>0) {
 
             ParseObject rule = mChildRules.get(position);
-//            Date date = rule.getCreatedAt();
-//            Log.v("time", "t:" + date.getTime());
-
-
-            // Get element from your dataset at this position and replace the contents of the view
-            // with that element
             holder.getTextView().setText("Rule for: " + rule.getString("locationName") + "\n" +
                     " From: " + rule.getString("ruleFromTime")+ "    " +
                      "To: " + rule.getString("ruleToTime"));

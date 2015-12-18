@@ -123,6 +123,15 @@ public class UserLocalStore {
         String childName = userLocalDatabase.getString("childForThisPhone", "");
         return childName;
     }
+    public void setChildForThisPhoneGender(String gender){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("childForThisPhoneGender", gender);
+        spEditor.commit();
+    }
+    public String getChildForThisPhoneGender(){
+        String gender = userLocalDatabase.getString("childForThisPhoneGender", "");
+        return gender;
+    }
 
     public void setRuleLocationId(int ruleLocationId){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();

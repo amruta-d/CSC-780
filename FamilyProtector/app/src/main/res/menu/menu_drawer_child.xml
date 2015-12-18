@@ -2,22 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/settings_drawer"
+            android:id="@+id/settings_drawer_child"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/profile_settings" />
+
         <item
-            android:id="@+id/help_drawer"
+            android:id="@+id/drawer_change_child"
+            android:icon="@drawable/ic_person_add_black_24dp"
+            android:title="@string/change_child" />
+        <item
+            android:id="@+id/help_drawer_child"
 
             android:icon="@drawable/ic_help_black_24dp"
             android:title="@string/help" />
         <item
-            android:id="@+id/about_drawer"
+            android:id="@+id/about_drawer_child"
 
             android:icon="@drawable/ic_info_black_24dp"
             android:title="@string/about" />
 
         <item
-            android:id="@+id/logout_drawer"
+            android:id="@+id/logout_drawer_child"
 
             android:icon="@drawable/ic_input_black_24dp"
             android:title="@string/logout" />

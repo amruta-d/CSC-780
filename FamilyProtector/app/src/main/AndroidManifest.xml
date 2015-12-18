@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="21" />
 
     <permission
         android:name="com.termproject.familyprotector.permission.MAPS_RECEIVE"
@@ -21,13 +21,19 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:protectionLevel="signature"
-        android:name="com.termproject.familyprotector.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="com.termproject.familyprotector.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.termproject.familyprotector.permission.C2D_MESSAGE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
+
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".StorageApplication"
@@ -50,12 +56,12 @@
         <activity
             android:name=".ParentHomeScreen"
             android:label="@string/title_activity_parent_home_screen"
-            android:theme="@style/AppTheme.Base">
+            android:theme="@style/AppTheme.Base" >
         </activity>
         <activity
             android:name=".AddChildDetails"
             android:label="@string/title_activity_add_child_details"
-            android:noHistory="true">
+            android:noHistory="true" >
         </activity>
         <activity
             android:name=".Register"
@@ -100,12 +106,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
-        <provider
-            android:name=".PlaceProvider"
-            android:authorities="com.termproject.familyprotector.PlaceProvider"
-            android:exported="false" />
-
         <activity
             android:name=".GeofencesActivity"
             android:label="@string/title_activity_geofences" >
@@ -123,30 +123,50 @@
         <activity
             android:name=".ChildLocationRuleSaveActivity"
             android:label="@string/title_activity_child_location_rule_save"
-            android:noHistory="true">
+            android:noHistory="true" >
+        </activity>
+        <activity
+            android:name=".ChildHomeScreenAfterSetup"
+            android:label="@string/title_activity_child_home_screen_after_setup"
+            android:theme="@style/AppTheme.Base" >
         </activity>
 
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
-            android:exported="false">
+        <service android:name=".GeofenceCreationService" />
+
+        <receiver
+            android:name="com.parse.ParsePushBroadcastReceiver"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <!--
-                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
-                -->
+                <!-- IMPORTANT: Change "com.parse.starter" to match your app's package name. -->
                 <category android:name="com.termproject.familyprotector" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".AlarmReceiver" />
+
+        <activity
+            android:name=".ChildProfileSettings"
+            android:label="@string/title_activity_child_profile_settings" >
+        </activity>
     </application>
 
 </manifest>

@@ -44,6 +44,7 @@ public class AddChildDetails extends AppCompatActivity implements View.OnClickLi
 
         childNameStr = editTextChildName.getText().toString();
         if(!(childNameStr.matches("")) && childGenderRadioGroup.getCheckedRadioButtonId()!=-1){
+            childNameStr = childNameStr.substring(0,1).toUpperCase() + childNameStr.substring(1);
             int genderId= childGenderRadioGroup.getCheckedRadioButtonId();
 //            radioButtonGender = (RadioButton)childGenderRadioGroup.indexOfChild(genderId);
             if (genderId == R.id.radio_button_male){

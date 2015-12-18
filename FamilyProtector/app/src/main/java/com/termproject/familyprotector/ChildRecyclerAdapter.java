@@ -59,10 +59,12 @@ public class ChildRecyclerAdapter extends RecyclerView.Adapter<ChildListRowHolde
                 ParseObject child = children.get(position);
 //                Toast.makeText(context, child.getString("name"), Toast.LENGTH_SHORT).show();
                 String childName = child.getString("name");
+                String gender = child.getString("gender");
                 userLocalStore.setChildForThisPhone(childName);
+                userLocalStore.setChildForThisPhoneGender(gender);
 
                 //    Toast.makeText(getActivity(),forecast,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context,GeofencesActivity.class);
+                Intent intent = new Intent(context,ChildHomeScreenAfterSetup.class);
                 context.startActivity(intent);
             }
         };

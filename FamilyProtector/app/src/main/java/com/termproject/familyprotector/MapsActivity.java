@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -94,6 +95,7 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View view) {
+        final View v = view;
         if (view.getId() == R.id.floating_action_button) {
             LayoutInflater layoutInflater = LayoutInflater.from(this);
             View perimeterCreator = layoutInflater.inflate(R.layout.dialog_location_save, null);
@@ -102,7 +104,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
             dialogPerimeter.setView(perimeterCreator);
             TextView childNameTextView = (TextView) perimeterCreator.findViewById(R.id.text_childName);
             TextView locationAddressTextView = (TextView) perimeterCreator.findViewById(R.id.text_address);
-//            locationNameEditText = (EditText) perimeterCreator.findViewById(R.id.edit_location_name);
             locationPerimeterEditText = (EditText) perimeterCreator.findViewById(R.id.edit_location_perimeter);
             childNameStr = userLocalStore.getChildDetails();
             childNameTextView.setText(childNameStr);
@@ -113,11 +114,7 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-//                            locationNameStr = locationNameEditText.getText().toString();
                             String locationPerimeterStr = locationPerimeterEditText.getText().toString();
-//                            if(locationNameStr.matches("")){
-//                                locationNameStr = "Rule Location";
-//                            }
                             if(locationPerimeterStr.matches("")){
                                 locationPerimeterValue = 30.0f;
                             }
@@ -128,8 +125,9 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 //                            saveRuleLocation();
                             createGeofenceCircle();
                             String toastStr = "Location with perimeter";
-                            continueButton.setVisibility(View.VISIBLE);
+//                            continueButton.setVisibility(View.VISIBLE);
                             Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+                            showSnackbar(v);
 
                         }
                     })
@@ -152,6 +150,25 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, ChildLocationRuleSaveActivity.class));
 
         }
+    }
+
+    public void showSnackbar(View v){
+        String message = "Press continue to save";
+        final Snackbar sn = Snackbar.make(v, message, Snackbar.LENGTH_INDEFINITE);
+        sn.setAction("Continue", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sn.dismiss();
+
+                userLocalStore.setLocationAddress(addressString);
+                userLocalStore.setLocationPerimeter(locationPerimeterValue);
+                userLocalStore.setLocationLatitude(latitude);
+                userLocalStore.setLocationLongitude(longitude);
+                startActivity(new Intent(MapsActivity.this, ChildLocationRuleSaveActivity.class));
+            }
+
+        });
+        sn.show();
     }
     
 
@@ -190,9 +207,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             public boolean onQueryTextSubmit(String query) {
-                //Here u can get the value "query" which is entered in the search box.
-                //textview.setText(query);
-                //opensearch();
                 Log.v("LISTENER", "OnQuerySubmit called - " + query);
                 hideSoftKeyboard(MapsActivity.this);
                 MapSearchTask mapSearchTask = new MapSearchTask();
@@ -223,9 +237,9 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
                 .strokeColor(Color.parseColor("#0084d3"))
                 .fillColor(Color.parseColor("#500084d3")));
 
-        if(mMap.getCameraPosition().zoom ==16.9f)
+        if(mMap.getCameraPosition().zoom <=16.9f)
         {
-            mMap.moveCamera(CameraUpdateFactory.zoomBy(2.5f));
+            mMap.animateCamera(CameraUpdateFactory.zoomBy(2.5f));
 
         }
 
@@ -247,9 +261,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
             Log.v("LISTENER", "doInBackground called - " + "");
             String apiKey = "AIzaSyAUSETHO5_4d_lGrGfjX4vAowf6DrqaNmk";
             try {
-//                URL url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?query=san+francisco&key=AIzaSyBTA9R3hjm618utMuwOkN1FYM_ykKE1Wo8");
-
-//                URL url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?query=san+francisco+tourist+spots&types=establishment&natural_feature&key=AIzaSyAUSETHO5_4d_lGrGfjX4vAowf6DrqaNmk");
                 final String GOOGLE_BASE_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
                 final String QUERY_PARAM = "query";
                 final String APIKEY_PARAM = "key";
@@ -260,7 +271,6 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
                         .build();
 
                 URL url = new URL(builtUri.toString());
-//                URL url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?query=Thornton+Hall,+San+Francisco+State+University,+1600+Holloway+Ave,+San+Francisco,+CA+94132&key=AIzaSyAUSETHO5_4d_lGrGfjX4vAowf6DrqaNmk");
 
                 // Create the request to Google Palces, and open the connection
 
@@ -311,6 +321,7 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+        @Override
         protected void onPostExecute(HashMap<String, String> locationMap) {
             String markerTitle = locationMap.get("addressStr");
             addressString = locationMap.get("addressStr");
@@ -353,6 +364,8 @@ public class MapsActivity extends AppCompatActivity implements View.OnClickListe
      * This should only be called when we are sure that map is not null.
      */
     private void setUpMap(double latitude, double longitude, String titleStr) {
+
+        mMap.getUiSettings().setMapToolbarEnabled(false);
 
         marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title(titleStr));
         marker.showInfoWindow();

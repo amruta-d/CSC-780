@@ -91,7 +91,7 @@
             android:text="To add details of your child click below" />-->
     </RelativeLayout>
 
-    <android.support.design.widget.NavigationView
+       <android.support.design.widget.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

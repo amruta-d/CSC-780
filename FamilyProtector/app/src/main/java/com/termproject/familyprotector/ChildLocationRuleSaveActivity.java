@@ -3,20 +3,19 @@ package com.termproject.familyprotector;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
-import java.util.Calendar;
-
 public class ChildLocationRuleSaveActivity extends AppCompatActivity implements View.OnClickListener{
 
     EditText locationNameEditText;
+    TextView addressText, perimeterText;
     TimePicker ruleLocationFromTime, ruleLocationToTime;
     Button saveButton;
     UserLocalStore userLocalStore;
@@ -35,14 +34,19 @@ public class ChildLocationRuleSaveActivity extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
         userLocalStore = new UserLocalStore(this);
         childName = userLocalStore.getChildDetails();
-
-        setTitle("  "+childName+"'s Rule");
+        addressString = userLocalStore.getLocationAddress();
+        locationPerimeterValue = userLocalStore.getLocationPerimeter();
+        setTitle("  " + childName + "'s Rule");
         setContentView(R.layout.activity_child_location_rule_save);
         locationNameEditText = (EditText)findViewById(R.id.edit_location_name);
-
         ruleLocationFromTime = (TimePicker)findViewById(R.id.location_timepicker_from);
         ruleLocationToTime = (TimePicker)findViewById(R.id.location_timepicker_to);
         saveButton = (Button)findViewById(R.id.rule_location_save_button);
+        addressText = (TextView)findViewById(R.id.text_address_string);
+        perimeterText = (TextView)findViewById(R.id.location_perimeter_value);
+        addressText.setText(addressString);
+        perimeterText.setText(locationPerimeterValue + " meters");
+
         String[] array = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.mySpinner);
         multiSelectionSpinner.setItems(array);
@@ -54,22 +58,23 @@ public class ChildLocationRuleSaveActivity extends AppCompatActivity implements 
 
     @Override
     public void onClick(View view){
-        strStartTime = ruleLocationFromTime.getCurrentHour() + ":" + ruleLocationFromTime.getCurrentMinute();
-        strEndTime = ruleLocationToTime.getCurrentHour() + ":" + ruleLocationToTime.getCurrentMinute();
+        if(ruleLocationFromTime.getCurrentMinute()!=0) {
+            strStartTime = ruleLocationFromTime.getCurrentHour() + ":" + ruleLocationFromTime.getCurrentMinute();
+        } else{
+            strStartTime = ruleLocationFromTime.getCurrentHour() + ":" + "00";
+        }
+        if(ruleLocationToTime.getCurrentMinute()!=0) {
+            strEndTime = ruleLocationToTime.getCurrentHour() + ":" + ruleLocationToTime.getCurrentMinute();
+        } else{
+            strStartTime = ruleLocationFromTime.getCurrentHour() + ":" + "00";
+        }
         selectedDays =  multiSelectionSpinner.getSelectedItemsAsString();
         days = selectedDays.split(",");
-        Log.v("items",selectedDays);
 
-        Calendar c = Calendar.getInstance();
-        int hours = c.get(Calendar.HOUR);
-        int minutes = c.get(Calendar.MINUTE);
-        Log.v("time", "hours:"+hours+"---min:"+minutes);
-        saveRuleLocationToParse();
-        startActivity(new Intent(this,ParentHomeScreen.class));
-    }
-
-    private void saveRuleLocationToParse (){
-
+//        Calendar c = Calendar.getInstance();
+//        int hours = c.get(Calendar.HOUR);
+//        int minutes = c.get(Calendar.MINUTE);
+//        Log.v("time", "hours:"+hours+"---min:"+minutes);
         latitude =userLocalStore.getLocationLatitude();
         longitude = userLocalStore.getLocationLongitude();
         locationNameStr = locationNameEditText.getText().toString();
@@ -80,14 +85,16 @@ public class ChildLocationRuleSaveActivity extends AppCompatActivity implements 
 
 
         if(locationNameStr.matches("")){
-            locationNameStr = "Rule Location";
+            locationNameStr = "rule location";
         }
-        addressString = userLocalStore.getLocationAddress();
-        locationPerimeterValue = userLocalStore.getLocationPerimeter();
+
         childName = userLocalStore.getChildDetails();
         user = userLocalStore.getLoggedInUser();
+        saveRuleLocationToParse();
+        startActivity(new Intent(this,ParentHomeScreen.class));
+    }
 
-
+    private void saveRuleLocationToParse (){
 
         ParseObject ruleLocation = new ParseObject("ChildRuleLocation");
         ParseGeoPoint ruleLatLng = new ParseGeoPoint(latitude,longitude);

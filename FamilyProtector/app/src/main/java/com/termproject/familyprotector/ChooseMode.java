@@ -1,15 +1,15 @@
 package com.termproject.familyprotector;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.parse.ParseInstallation;
 
-public class ChooseMode extends Activity implements View.OnClickListener{
+public class ChooseMode extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonParentMode,buttonChildMode;
     UserLocalStore userLocalStore;

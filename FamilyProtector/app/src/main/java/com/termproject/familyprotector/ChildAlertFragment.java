@@ -73,6 +73,7 @@ public class ChildAlertFragment extends Fragment {
         query.whereEqualTo("userName", user.getUsername());
         Log.v("userName", "name" + user.getUsername());
         query.whereEqualTo("childName", childName);
+        query.orderByDescending("createdAt");
         Log.v("childName", "name" + childName);
 
         query.findInBackground(new FindCallback<ParseObject>() {

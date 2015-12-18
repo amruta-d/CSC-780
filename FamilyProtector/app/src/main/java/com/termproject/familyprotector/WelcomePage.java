@@ -3,13 +3,8 @@ package com.termproject.familyprotector;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.ParseQuery;
 
 public class WelcomePage extends AppCompatActivity implements View.OnClickListener{
 
@@ -21,49 +16,22 @@ public class WelcomePage extends AppCompatActivity implements View.OnClickListen
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        //      Log.v("WelcomePage","I am here");
+        Continue = (Button)findViewById(R.id.Continue);
 
-        init();
         userLocalStore = new UserLocalStore(this);
 
         Continue.setOnClickListener(this);
 
-        // Find devices associated with these users
-        ParseQuery pushQuery = ParseInstallation.getQuery();
-        pushQuery.whereEqualTo("email","parent1");
-
-        // Send push notification to query
-        ParsePush push = new ParsePush();
-        push.setQuery(pushQuery); // Set our Installation query
-        push.setMessage("Free hotdogs at the Parse concession stand!");
-        push.sendInBackground();
-
-        System.out.println("Completed push!");
-
     }
-//    @Override
-//    protected void onStart(){
-//        super.onStart();
-//
-//        if (authenticate()){
-//
-//        }
-//
-//
-//    }
     private boolean authenticate(){
-
         return userLocalStore.getUserLoggedIn();
-
     }
 
     @Override
     public void onClick(View view) {
 
         boolean value = authenticate();
-       Log.v("Welcome", String.valueOf(value));
         if (value) {
-           // Log.v("welcome", "inside if loop");
             String appMode = userLocalStore.getAppMode();
             if(appMode.equals("parent")) {
                 user = userLocalStore.getLoggedInUser();
@@ -73,7 +41,7 @@ public class WelcomePage extends AppCompatActivity implements View.OnClickListen
             else if (appMode.equals("child")){
                 user = userLocalStore.getLoggedInUser();
                 if(!(userLocalStore.getChildForThisPhone().trim().equals(""))){
-                    Intent intent = new Intent(this, GeofencesActivity.class);
+                    Intent intent = new Intent(this, ChildHomeScreenAfterSetup.class);
                     startActivity(intent);
                 }
                 else{
@@ -91,11 +59,6 @@ public class WelcomePage extends AppCompatActivity implements View.OnClickListen
             startActivity(intent);
 
         }
-    }
-
-
-    private void init(){
-        Continue = (Button)findViewById(R.id.Continue);
     }
 
 

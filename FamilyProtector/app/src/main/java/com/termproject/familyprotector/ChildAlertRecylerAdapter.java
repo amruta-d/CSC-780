@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.parse.ParseObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -62,12 +63,16 @@ public class ChildAlertRecylerAdapter extends RecyclerView.Adapter<ChildAlertRec
 
             ParseObject alert = mChildAlerts.get(position);
             Date date = alert.getCreatedAt();
+            SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy ");
+            SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
+            String dateStr = formatter.format(date);
+            String timeStr = formatTime.format(date);
 
 
             // Get element from your dataset at this position and replace the contents of the view
             // with that element
             holder.getTextView().setText(mChildName + " " + mChildAlerts.get(position).getString("alert") +
-                    " at " + date);
+                    " on " + dateStr+ " at "+ timeStr+ " hrs.");
         }
         else {
             holder.getTextView().setText("No Alerts for "+ mChildName);

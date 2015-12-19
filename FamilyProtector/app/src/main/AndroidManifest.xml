@@ -110,7 +110,8 @@
 
         <activity
             android:name=".ChildDetailActivity"
-            android:label="@string/title_activity_child_detail" >
+            android:label="@string/title_activity_child_detail"
+            android:parentActivityName=".ParentHomeScreen" >
         </activity>
         <activity
             android:name=".ChildLocationRuleSaveActivity"
@@ -158,6 +159,10 @@
         <activity
             android:name=".ChildProfileSettings"
             android:label="@string/title_activity_child_profile_settings" >
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main" >
         </activity>
     </application>
 

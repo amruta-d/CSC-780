@@ -142,18 +142,15 @@ public class GeofenceCreationService extends IntentService implements
             return;
         }
 
+
         try {
             LocationServices.GeofencingApi.addGeofences(
                     mGoogleApiClient,
-                    // The GeofenceRequest object.
                     getGeofencingRequest(),
-                    // A pending intent that that is reused when calling removeGeofences(). This
-                    // pending intent is used to generate an intent when a matched geofence
-                    // transition is observed.
+
                     getGeofencePendingIntent()
             ).setResultCallback(this); // Result processed in onResult().
         } catch (SecurityException securityException) {
-            // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
             logSecurityException(securityException);
         }
     }
@@ -169,16 +166,6 @@ public class GeofenceCreationService extends IntentService implements
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             editor.putBoolean(GEOFENCES_ADDED_KEY, mGeofencesAdded);
             editor.apply();
-
-            // Update the UI. Adding geofences enables the Remove Geofences button, and removing
-            // geofences enables the Add Geofences button.
-//            setButtonsEnabledState();
-
-            Toast.makeText(
-                    this,
-                    getString(mGeofencesAdded ? R.string.geofences_added :
-                            R.string.geofences_removed),
-                    Toast.LENGTH_SHORT).show();
         } else {
             // Get the status code for the error and log it using a user-friendly message.
             String errorMessage = GeofenceErrorMessages.getErrorString(this,

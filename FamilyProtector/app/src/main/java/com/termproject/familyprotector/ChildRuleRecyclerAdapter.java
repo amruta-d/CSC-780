@@ -56,7 +56,7 @@ public class ChildRuleRecyclerAdapter extends RecyclerView.Adapter<ChildRuleRecy
         if(mChildRules.size()>0) {
 
             ParseObject rule = mChildRules.get(position);
-            holder.getTextView().setText("Rule for: " + rule.getString("locationName") + "\n" +
+            holder.getTextView().setText("Rule for:    " + rule.getString("locationName") + "\n" +
                     " From: " + rule.getString("ruleFromTime")+ "    " +
                      "To: " + rule.getString("ruleToTime"));
         }

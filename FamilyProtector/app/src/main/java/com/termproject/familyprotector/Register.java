@@ -3,8 +3,11 @@ package com.termproject.familyprotector;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -45,6 +48,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         textSignIn.setOnClickListener(this);
         String regex = "^(.+)@(.+)$";
         pattern = Pattern.compile(regex);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
     }
@@ -159,6 +165,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         userLocalStore.setUserLoggedIn(true);
         startActivity(new Intent(this, ChooseMode.class));
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

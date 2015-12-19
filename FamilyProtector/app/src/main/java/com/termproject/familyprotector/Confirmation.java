@@ -16,35 +16,46 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
-    Button bLogin;
+public class Confirmation extends AppCompatActivity implements View.OnClickListener{
+    Button bLogout;
     EditText etUsername, etPassword;
     String username, password;
-    User loggenInUser;
     UserLocalStore userLocalStore;
+    User loggenInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        init();
-        userLocalStore = new UserLocalStore(this);
+        setContentView(R.layout.activity_confirmation);
         final ActionBar actionBar = getSupportActionBar();
+        userLocalStore = new UserLocalStore(this);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        bLogin.setOnClickListener(this);
+        bLogout = (Button) findViewById(R.id.bLogin);
+        etUsername = (EditText) findViewById(R.id.confirmationUsername);
+        etPassword = (EditText) findViewById(R.id.confirmationPassword);
+        bLogout = (Button)findViewById(R.id.bLogout);
+        bLogout.setOnClickListener(this);
+
     }
 
-    private void init() {
-        bLogin = (Button) findViewById(R.id.bLogin);
-        etUsername = (EditText) findViewById(R.id.etUsername);
-        etPassword = (EditText) findViewById(R.id.etPassword);
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.bLogin:
+            case R.id.bLogout:
                 username = etUsername.getText().toString();
                 password = etPassword.getText().toString();
                 if (checkForBlankFields()) {
@@ -57,6 +68,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
         }
     }
+
 
     private boolean checkForBlankFields() {
         if (username.matches("") || password.matches("")) {
@@ -80,35 +92,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 if (parseObject == null) {
-                    Toast.makeText(Login.this, "Invalid credentials please try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Confirmation.this, "Invalid credentials please try again", Toast.LENGTH_LONG).show();
                 } else {
-                    loggenInUser = new User(username, password);
-                    userLocalStore.storeUserData(loggenInUser);
-                    userLocalStore.setUserLoggedIn(true);
-                    startActivity(new Intent(Login.this, ChooseMode.class));
+                    userLocalStore.setUserLoggedIn(false);
+                    userLocalStore.setChildForThisPhone("");
+                    startActivity(new Intent(Confirmation.this, Login.class));
 
                 }
             }
         });
 
     }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, WelcomePage.class));
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
 }

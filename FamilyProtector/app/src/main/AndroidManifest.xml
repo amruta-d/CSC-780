@@ -66,12 +66,14 @@
         <activity
             android:name=".Register"
             android:label="@string/title_activity_register"
-            android:noHistory="true" >
+            android:noHistory="true"
+            android:parentActivityName=".WelcomePage">
         </activity>
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
-            android:noHistory="true" >
+            android:noHistory="true"
+            android:parentActivityName=".WelcomePage">
         </activity>
         <activity
             android:name=".ChildHomeScreen"
@@ -160,11 +162,30 @@
             android:name=".ChildProfileSettings"
             android:label="@string/title_activity_child_profile_settings" >
         </activity>
-
         <activity
             android:name=".ChildAlertDetailActivity"
             android:label="@string/title_activity_child_alert_detail"
-            android:parentActivityName=".ChildDetailActivity">
+            android:parentActivityName=".ChildDetailActivity" >
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".ParentHomeScreen" >
+        </activity>
+        <activity
+            android:name=".Help"
+            android:label="@string/title_activity_help"
+            android:parentActivityName=".ParentHomeScreen" >
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ParentHomeScreen">
+        </activity>
+        <activity
+            android:name=".Confirmation"
+            android:label="@string/title_activity_confirmation"
+            android:parentActivityName=".ChildHomeScreenAfterSetup">
         </activity>
     </application>
 

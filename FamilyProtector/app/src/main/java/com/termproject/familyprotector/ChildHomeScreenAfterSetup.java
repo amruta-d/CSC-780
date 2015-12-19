@@ -77,11 +77,16 @@ public class ChildHomeScreenAfterSetup extends AppCompatActivity {
                     case R.id.settings_drawer_child:
                         startActivity(new Intent(ChildHomeScreenAfterSetup.this,ChildProfileSettings.class));
                         return true;
-//                    case R.id.logout_drawer:
+                    case R.id.drawer_change_child:
+                        startActivity(new Intent(ChildHomeScreenAfterSetup.this, ChildHomeScreen.class));
+
 //                        userLocalStore.setUserLoggedIn(false);
 //
 //                        startActivity(new Intent(ChildHomeScreenAfterSetup.this, Login.class));
-//                        break;
+                        break;
+                    case R.id.logout_drawer_child:
+                        startActivity(new Intent(ChildHomeScreenAfterSetup.this, Confirmation.class));
+                        break;
                     default:
                         txt = "Invalid Item Selected";
                         Toast.makeText(getApplicationContext(), txt, Toast.LENGTH_LONG).show();

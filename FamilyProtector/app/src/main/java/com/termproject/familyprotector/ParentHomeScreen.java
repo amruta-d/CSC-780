@@ -40,6 +40,7 @@ public class ParentHomeScreen extends AppCompatActivity implements View.OnClickL
         addChildFab = (FloatingActionButton)findViewById(R.id.add_child_fab);
         mRecyclerView = (RecyclerView)findViewById(R.id.parent_screen_recycler_view);
         userLocalStore = new UserLocalStore(this);
+        setTitle("Parent Mode");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         getChildrenDetailsFromParse();
 
@@ -70,11 +71,18 @@ public class ParentHomeScreen extends AppCompatActivity implements View.OnClickL
                 switch (menuItem.getItemId()) {
                     case R.id.logout_drawer:
                         userLocalStore.setUserLoggedIn(false);
-
+                        userLocalStore.setAppMode("");
                         startActivity(new Intent(ParentHomeScreen.this, Login.class));
                         break;
+                    case R.id.about_drawer:
+                        startActivity(new Intent(ParentHomeScreen.this, AboutActivity.class));
+                        break;
+                    case R.id.help_drawer:
+                        startActivity(new Intent(ParentHomeScreen.this,Help.class));
+                        break;
+
                     default:
-                        txt = "Invalid Item Selected";
+                        txt = "Please wait for some time";
                         Toast.makeText(getApplicationContext(), txt, Toast.LENGTH_LONG).show();
                 }
 

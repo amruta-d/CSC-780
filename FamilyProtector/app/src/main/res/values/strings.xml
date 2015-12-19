@@ -17,6 +17,8 @@
     <string name="title_activity_child_detail">ChildDetailActivity</string>
     <string name="title_activity_save_rule_location">SaveRuleLocationActivity</string>
     <string name="title_activity_child_location_rule_save">ChildLocationRuleSaveActivity</string>
+    <string name="title_activity_help">Help</string>
+    <string name="title_activity_settings">Settings</string>
 
 
     <!-- Action Strings -->
@@ -125,4 +127,17 @@
     <string name="title_activity_child_profile_settings">ChildProfileSettings</string>
     <string name="title_activity_child_alert_detail">ChildAlertDetailActivity</string>
     <string name="action_share">Share</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="about_text">Safety and security are top concerns for families everywhere. When it comes to safety and security, nothing is more important than protecting
+        our most precious and vulnerable asset - our children. \n\nAt Family Protector, we
+        have decades of experience developing and applying technologies that
+        keep families safe and secure where they live, work and travel.</string>
+
+    <string name="help_text">Please contact the author or the app for any issues. \n\nYou can email at amruta1209@gmail.com. \n\nWe will look into your concerns
+    and try to provide help asap.</string>
+    <string name="confirmation">Please provide valid credentials in order to logout.</string>
+
+    <string name="setting_text">Come back later for more options!!</string>
+    <string name="title_activity_confirmation">Confirmation</string>
+
 </resources>

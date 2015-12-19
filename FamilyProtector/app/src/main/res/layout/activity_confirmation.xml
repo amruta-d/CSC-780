@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.termproject.familyprotector.Login">
+    tools:context="com.termproject.familyprotector.Confirmation">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,10 +21,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:text="@string/confirmation"
+                android:layout_gravity="center_horizontal"
+                android:textSize="15sp"
+                android:layout_marginLeft="8dp"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginLeft="8dp"
                 android:text="@string/email" />
 
             <EditText
-                android:id="@+id/etUsername"
+                android:id="@+id/confirmationUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
@@ -33,22 +44,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_marginLeft="8dp"
                 android:text="@string/password" />
 
             <EditText
-                android:id="@+id/etPassword"
+                android:id="@+id/confirmationPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:inputType="textPassword" />
 
             <Button
-                android:id="@+id/bLogin"
+                android:id="@+id/bLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="36dp"
-                android:text="@string/login" />
+                android:text="@string/logout" />
+
 
         </LinearLayout>
     </ScrollView>

@@ -12,14 +12,18 @@ public class ChildRuleDetailActivity extends AppCompatActivity {
 
     String locationStr,addressStr,perimeterStr, daysStr, timeStr;
     TextView locationText, addressText, perimeterText, daysText, timeText;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child_rule_detail);
+        userLocalStore = new UserLocalStore(this);
+
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        setTitle(userLocalStore.getChildDetails()+" Rule Detail");
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -40,8 +44,8 @@ public class ChildRuleDetailActivity extends AppCompatActivity {
         addressText.setText(addressStr);
         perimeterText.setText(perimeterStr+" meters");
         daysText.setText(daysStr);
-        timeText.setText(timeStr+" hrs");
-        
+        timeText.setText(timeStr + " hrs");
+
     }
 
 

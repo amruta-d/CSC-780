@@ -1,0 +1,1 @@
+Family Protector is an Android application that helps parents keep a track of their children.

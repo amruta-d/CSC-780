@@ -67,13 +67,13 @@
             android:name=".Register"
             android:label="@string/title_activity_register"
             android:noHistory="true"
-            android:parentActivityName=".WelcomePage">
+            android:parentActivityName=".WelcomePage" >
         </activity>
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
             android:noHistory="true"
-            android:parentActivityName=".WelcomePage">
+            android:parentActivityName=".WelcomePage" >
         </activity>
         <activity
             android:name=".ChildHomeScreen"
@@ -180,12 +180,21 @@
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".ParentHomeScreen">
+            android:parentActivityName=".ParentHomeScreen" >
         </activity>
         <activity
             android:name=".Confirmation"
             android:label="@string/title_activity_confirmation"
-            android:parentActivityName=".ChildHomeScreenAfterSetup">
+            android:parentActivityName=".ChildHomeScreenAfterSetup" >
+        </activity>
+        <activity
+            android:name=".ChildProfileParentSettings"
+            android:label="@string/title_activity_child_profile_parent_settings" >
+        </activity>
+        <activity
+            android:name=".ChildRuleDetailActivity"
+            android:label="@string/title_activity_child_rule_detail"
+            android:parentActivityName=".ChildDetailActivity">
         </activity>
     </application>
 

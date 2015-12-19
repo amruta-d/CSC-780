@@ -113,11 +113,13 @@
     <string name="dialog_child">Rule For :</string>
     <string name="dialog_address">Address :</string>
     <string name="date">Date :</string>
+    <string name="days">Days :</string>
     <string name="time">Time :</string>
     <string name="dialog_location_type">Location type :</string>
     <string name="location_name">Location name :</string>
     <string name="dialog_select_days">Select Days :</string>
     <string name="dialog_location_perimeter">Location perimeter:</string>
+    <string name="dialog_perimeter">Perimeter:</string>
     <string name="dialog_location_time_from">From :</string>
     <string name="dialog_location_time_to">To :</string>
     <string name="dialog_location_hint">E.g. school, home</string>
@@ -139,5 +141,7 @@
 
     <string name="setting_text">Come back later for more options!!</string>
     <string name="title_activity_confirmation">Confirmation</string>
+    <string name="title_activity_child_profile_parent_settings">ChildProfileParentSettings</string>
+    <string name="title_activity_child_rule_detail">ChildRuleDetailActivity</string>
 
 </resources>

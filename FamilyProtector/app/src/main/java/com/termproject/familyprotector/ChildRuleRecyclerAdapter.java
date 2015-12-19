@@ -1,5 +1,7 @@
 package com.termproject.familyprotector;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,8 @@ import java.util.List;
 public class ChildRuleRecyclerAdapter extends RecyclerView.Adapter<ChildRuleRecyclerAdapter.ChildRuleViewHolder> {
     private List<ParseObject> mChildRules;
     private String mChildName;
+    String[] array = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    private Context context;
 
     public static class ChildRuleViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
@@ -37,7 +41,8 @@ public class ChildRuleRecyclerAdapter extends RecyclerView.Adapter<ChildRuleRecy
             return textView;
         }
     }
-    public ChildRuleRecyclerAdapter(List<ParseObject> childAlerts, String childName) {
+    public ChildRuleRecyclerAdapter(Context context, List<ParseObject> childAlerts, String childName) {
+        this.context = context;
         mChildRules = childAlerts;
         mChildName = childName;
     }
@@ -53,16 +58,59 @@ public class ChildRuleRecyclerAdapter extends RecyclerView.Adapter<ChildRuleRecy
     @Override
     public void onBindViewHolder(ChildRuleViewHolder holder, int position) {
 
-        if(mChildRules.size()>0) {
 
             ParseObject rule = mChildRules.get(position);
-            holder.getTextView().setText("Rule for:    " + rule.getString("locationName") + "\n" +
-                    " From: " + rule.getString("ruleFromTime")+ "    " +
-                     "To: " + rule.getString("ruleToTime"));
-        }
-        else {
-            holder.getTextView().setText("No Rules for "+ mChildName);
-        }
+            holder.getTextView().setText("Rule for  :  " + rule.getString("locationName"));
+
+        holder.getTextView().setTag(holder);
+//        + "\n" +
+//                " From: " + rule.getString("ruleFromTime")+ "\n" +
+//                "To: " + rule.getString("ruleToTime"));
+
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChildRuleViewHolder rowHolder = (ChildRuleViewHolder) view.getTag();
+                int position = rowHolder.getPosition();
+
+                ParseObject rule = mChildRules.get(position);
+                String location = rule.getString("locationName");
+                String locationAddress = rule.getString("locationAddress");
+                Float perimeter = rule.getNumber("locationRadius").floatValue();
+                String perimeterStr = Float.toString(perimeter);
+                String fromTime = rule.getString("ruleFromTime");
+                String toTime = rule.getString("ruleToTime");
+                String[] timearr = fromTime.split(":");
+                if(Integer.parseInt(timearr[1])<10){
+                    fromTime = timearr[0]+":0"+timearr[1];
+                }
+                timearr = toTime.split(":");
+                if(Integer.parseInt(timearr[1])<10){
+                    toTime = timearr[0]+":0"+timearr[1];
+                }
+                String days ="";
+                for(String day:array){
+                    if(rule.getString(day)!=null){
+                        if(rule.getString(day).matches("Yes")) {
+                        days = days + ", " + day;
+                    }
+
+                    }
+                }
+                String timeStr = fromTime+"  to  "+ toTime;
+
+                Intent intent = new Intent(context,ChildRuleDetailActivity.class);
+                intent.putExtra("location",location);
+                intent.putExtra("ruleAddress",locationAddress);
+                intent.putExtra("days",days);
+                intent.putExtra("time",timeStr);
+                intent.putExtra("perimeter",perimeterStr);
+                context.startActivity(intent);
+            }
+        };
+
+        //Handle click event on both title and image click
+        holder.getTextView().setOnClickListener(clickListener);
 
     }
 

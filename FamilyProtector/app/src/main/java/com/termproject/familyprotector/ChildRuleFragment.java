@@ -82,7 +82,7 @@ public class ChildRuleFragment extends Fragment {
             public void done(List<ParseObject> childRulesFromParse, ParseException e) {
                 if (e == null) {
                     if (childRulesFromParse.size() > 0) {
-                        mAdapter = new ChildRuleRecyclerAdapter(childRulesFromParse, childName);
+                        mAdapter = new ChildRuleRecyclerAdapter(getActivity(),childRulesFromParse, childName);
                         // Set CustomAdapter as the adapter for RecyclerView.
                         mRecyclerView.setAdapter(mAdapter);
 

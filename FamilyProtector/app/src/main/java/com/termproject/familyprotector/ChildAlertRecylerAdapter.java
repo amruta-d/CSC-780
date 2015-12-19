@@ -93,10 +93,6 @@ public class ChildAlertRecylerAdapter extends RecyclerView.Adapter<ChildAlertRec
                     alertLocation = alertLocation + alertLocationArr[i];
 
                 }
-
-
-
-
                 //    Toast.makeText(getActivity(),forecast,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context,ChildAlertDetailActivity.class).putExtra("dateStr",dateStr);
                 intent.putExtra("alertAddress",alert.getString("alertAddress"));

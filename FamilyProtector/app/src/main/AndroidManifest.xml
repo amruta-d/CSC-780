@@ -160,9 +160,11 @@
             android:name=".ChildProfileSettings"
             android:label="@string/title_activity_child_profile_settings" >
         </activity>
+
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
+            android:name=".ChildAlertDetailActivity"
+            android:label="@string/title_activity_child_alert_detail"
+            android:parentActivityName=".ChildDetailActivity">
         </activity>
     </application>
 

@@ -73,7 +73,7 @@ public class ChildAlertFragment extends Fragment {
 
 
                     if (childAlertsFromParse.size() > 0) {
-                        mAdapter = new ChildAlertRecylerAdapter(childAlertsFromParse, childName);
+                        mAdapter = new ChildAlertRecylerAdapter(getActivity(), childAlertsFromParse, childName);
                         // Set CustomAdapter as the adapter for RecyclerView.
                         mRecyclerView.setAdapter(mAdapter);
 

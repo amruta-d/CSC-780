@@ -110,7 +110,10 @@
     <string name="dialog_title">Save the location</string>
     <string name="dialog_child">Rule For :</string>
     <string name="dialog_address">Address :</string>
+    <string name="date">Date :</string>
+    <string name="time">Time :</string>
     <string name="dialog_location_type">Location type :</string>
+    <string name="location_name">Location name :</string>
     <string name="dialog_select_days">Select Days :</string>
     <string name="dialog_location_perimeter">Location perimeter:</string>
     <string name="dialog_location_time_from">From :</string>
@@ -120,4 +123,6 @@
     <string name="dialog_distance_units">meters</string>
     <string name="title_activity_child_home_screen_after_setup">ChildHomeScreenAfterSetup</string>
     <string name="title_activity_child_profile_settings">ChildProfileSettings</string>
+    <string name="title_activity_child_alert_detail">ChildAlertDetailActivity</string>
+    <string name="action_share">Share</string>
 </resources>

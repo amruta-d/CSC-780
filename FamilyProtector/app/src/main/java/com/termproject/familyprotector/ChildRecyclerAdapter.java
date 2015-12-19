@@ -74,8 +74,6 @@ public class ChildRecyclerAdapter extends RecyclerView.Adapter<ChildListRowHolde
 
 
 
-
-
     }
 
     @Override

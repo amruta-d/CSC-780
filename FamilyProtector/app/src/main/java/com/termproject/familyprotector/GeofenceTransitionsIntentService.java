@@ -49,6 +49,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.v("intent","in intent");
 
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
@@ -97,13 +98,14 @@ public class GeofenceTransitionsIntentService extends IntentService {
     }
 
 
-    private void saveAlertToParse(String geofenceTransitionDetails, String geofenceTransitionId) {
+    private void saveAlertToParse(String geofenceTransitionDetails, String geofenceTransitionId, String geofenceTriggeringAddress) {
 
         ParseObject childAlerts = new ParseObject("ChildAlerts");
         childAlerts.put("userName", userName);
         childAlerts.put("childName", childNameStr);
         childAlerts.put("alert", geofenceTransitionDetails);
         childAlerts.put("ruleIdStr", geofenceTransitionId);
+        childAlerts.put("alertAddress",geofenceTriggeringAddress );
         childAlerts.saveInBackground();
     }
 
@@ -115,8 +117,14 @@ public class GeofenceTransitionsIntentService extends IntentService {
         // Send push notification to query
         ParsePush push = new ParsePush();
         push.setQuery(pushQuery); // Set our Installation query
+        int minutes = c.get(Calendar.MINUTE);
+        String minStr = Integer.toString(minutes);
+        if(minutes<10){
+            minStr = "0"+Integer.toString(minutes);
 
-        push.setMessage(childNameStr +" "+ geofenceTransitionDetails + " at " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE));
+        }
+
+        push.setMessage(childNameStr +" "+ geofenceTransitionDetails + " at " + c.get(Calendar.HOUR_OF_DAY) + ":" + minStr);
         push.sendInBackground();
 
     }
@@ -186,10 +194,11 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
                             String triggeringGeofenceName = parseObject.getString("locationName");
                             String triggeringGeofenceId = Integer.toString(parseObject.getInt("ruleLocationId"));
+                            String triggeringGeofenceAddress = parseObject.getString("locationAddress");
                             geofenceAlertObj = new GeofenceAlertObj(triggeringGeofenceName,
                                     triggeringGeofenceId, geofenceTransitionString);
 
-                            saveAlertToParse(geofenceAlertObj.alertString(), geofenceAlertObj.alertIdString());
+                            saveAlertToParse(geofenceAlertObj.alertString(), geofenceAlertObj.alertIdString(), triggeringGeofenceAddress);
                             sendParsePush(geofenceAlertObj.alertString());
 
 

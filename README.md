@@ -19,6 +19,7 @@ This application uses various android features such as:
 -Multi selection spinner
 -Google Maps API to search for a particular location
 -Alarm Manager to run a service automatically everyday.
+-Share feature where one parent can share the alert regarding the child with another parent
 
 ###Installation Steps
 (Note: in order to test the notification functionality two android phones are required for testing this app)

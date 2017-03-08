@@ -52,6 +52,7 @@ public class WelcomePage extends AppCompatActivity implements View.OnClickListen
             else {
                 Intent intent = new Intent(this, ChooseMode.class);
                 startActivity(intent);
+                
             }
         }
         else{

@@ -46,9 +46,7 @@ public class WelcomePage extends AppCompatActivity implements View.OnClickListen
                 }
                 else{
                     Intent intent = new Intent(this, ChildHomeScreen.class);
-                    startActivity(intent);
-
-                    
+                    startActivity(intent);                    
                 }
             }
             else {
